@@ -1,0 +1,28 @@
+.radio-title {
+    margin: -16px -16px 0 -16px;
+    position: relative;
+    overflow: hidden;
+    
+    .radio-name {
+        text-align: center;
+        font-size: 24px;
+        color: white;
+        margin-top: 32px;
+        margin-bottom: 56px;
+    }
+
+    .ellipse-container {
+        overflow: hidden;
+    }
+
+    .ellipse {
+        position: absolute;
+        top: -35px;
+        left: -25%;
+        background-color: #333;
+        width: 150%;
+        height: 130px;
+        border-radius: 50%;
+        z-index: -1;
+    }
+}

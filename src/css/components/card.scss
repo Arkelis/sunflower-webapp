@@ -1,0 +1,39 @@
+.card {
+    display: flex;
+    background-color: #F4F4F4;
+    border-radius: 4px;
+    line-height: 0;
+    min-width: 300px;
+    margin-bottom: 16px;
+    transition: box-shadow .3s ease-in-out;
+
+    &:hover {
+        box-shadow: 0 4px 4px 1px #DDD;
+    }
+
+    .thumbnail img {
+        border-radius: 4px;
+        height: 120px;
+    }
+
+    .info {
+        line-height: 1;
+        display: grid;
+        align-content: center;
+        margin: 0 16px;
+        font-size: 14px;
+
+        .channel-name {
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 9px;
+        }
+
+        .show-title {
+            font-weight: 300;
+            margin-bottom: 4px;
+        }
+    }
+}
+
