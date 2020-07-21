@@ -26,3 +26,37 @@
         z-index: -1;
     }
 }
+
+@media only screen and (min-width: $medium_breakpoint) {
+    .radio-title {
+        margin: -32px -32px 0 -32px;
+    
+        .radio-name {
+            font-size: 32px;
+            text-align: left;
+            display: block;
+            width: calc(2 * #{$vertical_card_width} + 32px);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .ellipse {
+            top: -300px;
+            left: -70%;
+            width: 200%;
+            height: 400px;
+        }
+    }
+}
+
+@media only screen and (min-width: $big_breakpoint) {
+    .radio-title .radio-name {
+        width: calc(3 * #{$vertical_card_width} + 2 * 32px);
+    }
+}
+
+@media only screen and (min-width: $large_breakpoint) {
+    .radio-title .radio-name {
+        width: calc(2 * #{$horizontal_card_width} + 32px);
+    }
+}

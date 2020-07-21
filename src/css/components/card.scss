@@ -1,15 +1,16 @@
 .card {
+    @include ripple-effect(#F4F4F4, #DDD);
     display: flex;
     background-color: #F4F4F4;
     border-radius: 4px;
     line-height: 0;
-    min-width: 300px;
     margin-bottom: 16px;
-    transition: box-shadow .3s ease-in-out;
+    // transition: background-color .3s ease-in-out;
 
-    &:hover {
-        box-shadow: 0 4px 4px 1px #DDD;
-    }
+    // &:hover {
+    //     background-color: #DDD;
+    //     // box-shadow: 0 4px 4px 1px #DDD;
+    // }
 
     .thumbnail img {
         border-radius: 4px;
@@ -30,10 +31,83 @@
             margin-bottom: 9px;
         }
 
-        .show-title {
+        .show-title, .next-title {
             font-weight: 300;
             margin-bottom: 4px;
+        }
+
+        .next-title {
+            @include large-only
         }
     }
 }
 
+/* --------------------------------------------------------------------------------------------- */
+/*                                         T A B L E T T E                                       */
+/* --------------------------------------------------------------------------------------------- */
+
+@media only screen and (min-width: 736px) {
+    .channel-cards {
+        display: grid;
+        grid-template-columns: repeat(2, $vertical_card_width);
+        grid-gap: 32px;
+        margin: auto;
+    }
+    
+    .card {
+        width: $vertical_card_width;
+        height: 480px;
+        flex-direction: column;
+        border-radius: 8px;
+    
+        .thumbnail img {
+            border-radius: 8px;
+            height: $vertical_card_width;
+        }
+    
+        .info {
+            margin: 24px 24px;
+            font-size: 16px;
+            align-content: start;
+    
+            .channel-name {
+                font-size: 24px;
+                margin-bottom: 12px;
+            }
+    
+            .show-title, .next-title {
+                margin-bottom: 6px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: $big_breakpoint) {
+    .channel-cards {
+        grid-template-columns: repeat(3, $vertical_card_width);
+    }
+}
+
+/* --------------------------------------------------------------------------------------------- */
+/*                                         D E S K T O P                                         */
+/* --------------------------------------------------------------------------------------------- */
+
+@media only screen and (min-width: $large_breakpoint) {
+    .channel-cards {
+        grid-template-columns: repeat(2, $horizontal_card_width);
+    }
+    
+    .card {
+        width: $horizontal_card_width;
+        height: 240px;
+        flex-direction: row;
+    
+        .thumbnail img {
+            height: 240px;
+        }
+
+        .title {
+            margin-bottom: 24px;
+        }
+    }
+}

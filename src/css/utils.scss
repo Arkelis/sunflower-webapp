@@ -1,0 +1,8 @@
+@mixin large-only($display_mode: block) {
+    display: none;
+
+    @media only screen and (min-width: $large_breakpoint) {
+        display: $display_mode;
+    }
+}
+
