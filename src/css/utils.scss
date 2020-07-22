@@ -1,8 +1,17 @@
 @mixin large-only($display_mode: block) {
     display: none;
 
-    @media only screen and (min-width: $large_breakpoint) {
+    @media only screen and (min-width: $list_large_breakpoint) {
         display: $display_mode;
     }
 }
 
+@mixin text($font: $sans_serif, $size: inherit, $weight: 400, $style: unset, $transform: none, $align: unset, $hyphens: none) {
+    font-family: $font;
+    font-size: $size;
+    font-weight: $weight;
+    font-style: $style;
+    text-transform: $transform;
+    text-align: $align;
+    hyphens: $hyphens;
+}

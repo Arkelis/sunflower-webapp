@@ -1,6 +1,17 @@
 $vertical_card_width: 320px;
 $horizontal_card_width: 720px;
 
-$medium_breakpoint: 736px;
-$big_breakpoint: 1088px;
-$large_breakpoint: 1536px;
+$list_medium_breakpoint: calc(#{$vertical_card_width} * 2 + 3 * 32px);
+$list_big_breakpoint: calc(#{$vertical_card_width} * 3 + 4 * 32px);
+$list_large_breakpoint: calc(#{$horizontal_card_width} * 2 + 3 * 32px);
+
+$player_medium_breakpoint: $list_medium_breakpoint;
+$big_thumbnail_width: 270px;
+$large_thumbnail_width: 350px;
+$big_info_width: 540px;
+$large_info_width: 700px;
+$player_big_breakpoint: calc(#{$big_thumbnail_width} + #{$big_info_width} + 32px + 128px);
+$player_large_breakpoint: calc(#{$large_thumbnail_width} + #{$large_info_width} + 32px + 128px); 
+
+$sans_serif: "Fira Sans", "sans-serif";
+$sans_serif_condensed: "Fira Sans Condensed", "sans-serif";

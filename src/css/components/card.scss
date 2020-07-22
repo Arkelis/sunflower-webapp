@@ -1,20 +1,21 @@
 .card {
-    @include ripple-effect(#F4F4F4, #DDD);
     display: flex;
     background-color: #F4F4F4;
     border-radius: 4px;
     line-height: 0;
     margin-bottom: 16px;
-    // transition: background-color .3s ease-in-out;
 
-    // &:hover {
-    //     background-color: #DDD;
-    //     // box-shadow: 0 4px 4px 1px #DDD;
-    // }
+    &:hover {
+        background-color: #DDD;
+    }
 
-    .thumbnail img {
-        border-radius: 4px;
-        height: 120px;
+    .thumbnail {
+        line-height: 0;
+    
+        img {
+            border-radius: 4px;
+            height: 120px;
+        }
     }
 
     .info {
@@ -82,7 +83,7 @@
     }
 }
 
-@media only screen and (min-width: $big_breakpoint) {
+@media only screen and (min-width: $list_big_breakpoint) {
     .channel-cards {
         grid-template-columns: repeat(3, $vertical_card_width);
     }
@@ -92,7 +93,7 @@
 /*                                         D E S K T O P                                         */
 /* --------------------------------------------------------------------------------------------- */
 
-@media only screen and (min-width: $large_breakpoint) {
+@media only screen and (min-width: $list_large_breakpoint) {
     .channel-cards {
         grid-template-columns: repeat(2, $horizontal_card_width);
     }

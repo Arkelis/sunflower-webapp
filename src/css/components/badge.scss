@@ -1,12 +1,24 @@
 .badge {
-    background-color: white;
+    background-color: #F4F4F4;
     font-family: "Fira Sans Condensed", 'sans-serif';
     font-weight: 400;
     border-radius: 4px;
-    padding: 6px 8px;
+    padding: .420em .570em;
     margin-bottom: 4px;
+}
+
+.badge--inverted {
+    background-color: white;
 }
 
 .badge--large-only {
     @include large-only(inline-block)
+}
+
+.button {
+    transition: background-color .3s ease-in-out;
+}
+
+.button:hover {
+    background-color: #DDD;
 }

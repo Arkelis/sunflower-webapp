@@ -27,7 +27,7 @@
     }
 }
 
-@media only screen and (min-width: $medium_breakpoint) {
+@media only screen and (min-width: $list_medium_breakpoint) {
     .radio-title {
         margin: -32px -32px 0 -32px;
     
@@ -49,13 +49,13 @@
     }
 }
 
-@media only screen and (min-width: $big_breakpoint) {
+@media only screen and (min-width: $list_big_breakpoint) {
     .radio-title .radio-name {
         width: calc(3 * #{$vertical_card_width} + 2 * 32px);
     }
 }
 
-@media only screen and (min-width: $large_breakpoint) {
+@media only screen and (min-width: $list_large_breakpoint) {
     .radio-title .radio-name {
         width: calc(2 * #{$horizontal_card_width} + 32px);
     }

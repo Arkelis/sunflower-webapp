@@ -94,9 +94,7 @@ export default function ChannelsList() {
         cards.push(<li key={channel.endpoint}><Card channel={channel}/></li>)
     })
 
-    console.log('render')
-
-    return <div>
+    return <>
         <div className="radio-title">
             <div className="ellipse"></div>
             <h1 className="radio-name">Radio Pycolore</h1>
@@ -107,5 +105,5 @@ export default function ChannelsList() {
                 {cards}
             </ul>
         </div>
-    </div>
+    </>
 }
