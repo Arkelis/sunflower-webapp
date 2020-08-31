@@ -6,6 +6,11 @@ html {
     font-family: $sans_serif;
 }
 
+button {
+    background-color: transparent;
+    border: none;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -17,7 +22,7 @@ html {
 }
 
 body {
-    margin: 16px;
+    margin: 16px 16px 80px 16px;
     min-width: 300px;
 }
 
@@ -37,7 +42,7 @@ h3 {
 
 @media only screen and (min-width: 736px) {
     body {
-        margin: 32px;
+        margin: 32px 32px 112px 32px;
     }
 
     h2 {

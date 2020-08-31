@@ -1,0 +1,92 @@
+.player {
+    background-color: #fff;
+    border-top: solid #DDD 1px;
+    position: fixed;
+    padding: 8px 16px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 30px auto;
+    
+    .player-info {
+        display: grid;
+        align-content: center;
+        margin-left: 16px;
+        min-width: calc(100% - 48px);
+
+        .player-info__channel-show {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            
+            strong {
+                font-weight: bold;
+            }
+            
+            @include text($size: 14px, $weight: 300);
+        }
+        
+        .player-info__title {
+            @include text($size: 14px, $weight: 300);
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            
+            strong {
+                font-weight: bold;
+            }
+        }
+        
+        .player-info__progress-bar {
+            margin: 4px 0;
+            display: flex;
+            
+            .start,
+            .end {
+                @include text($size: 12px, $weight: 400)
+            }
+            
+            .progress {
+                background-color: #000;
+                height: 1.5px;
+                width: 100%;
+                margin: 0 8px;
+                margin-top: .33em;
+            }
+        }
+    }    
+
+    .play-button {
+        cursor: pointer;
+        img {
+            width: 24px;
+        }
+    }
+
+    @media only screen and (min-width: $list_medium_breakpoint) {
+        padding: 16px 32px;
+
+        .player-info {
+            .player-info__channel-show,
+            .player-info__title {
+                display: inline;
+            }
+
+            .player-info__title::before {
+                content: " - ";
+            }
+        }
+    }
+
+    @media only screen and (min-width: $list_big_breakpoint) {
+        padding: 16px 64px;
+
+        .player-info {
+            .player-info__channel-show,
+            .player-info__title {
+                font-size: 16px;
+            }
+        }
+    }
+}
