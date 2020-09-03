@@ -10,13 +10,14 @@ import Player from "./components/Player"
 
 export default function App() {
 
-    const [selectedChannel, setSelectedChannel] = useState({})
+    const [selectedChannel, setSelectedChannel] = useState("")
     const [channelData, setChannelData] = useState({})
     const [channelEndpoints, setChannelEndpoints] = useState([])
     const [playerMode, setPlayerMode] = useState("normal") // normal / simple / simpleBig
     const [loading, setLoading] = useState(true)
 
-    const apiHost = "https://api.radio.pycolore.fr"
+    // const apiHost = "https://api.radio.pycolore.fr"
+    const apiHost = "http://192.168.1.52:8000"
 
     useEffect(() => {
         for (let endpoint of channelEndpoints) {
@@ -86,6 +87,6 @@ export default function App() {
                 </Route>
             </Switch>
         </Router>
-        <Player mode={playerMode} channel={selectedChannel} />
+        {selectedChannel === "" ? "" : <Player mode={playerMode} channel={selectedChannel} />}
     </>
 }

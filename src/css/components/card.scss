@@ -1,6 +1,6 @@
 .card {
     display: flex;
-    background-color: #F4F4F4;
+    background-color: $lightgrey;
     border-radius: 4px;
     line-height: 0;
     margin-bottom: 16px;
@@ -37,8 +37,13 @@
             margin-bottom: 4px;
         }
 
+        .show-title, .title {
+            @include truncate-lines(2)
+        }
+
         .next-title {
-            @include large-only
+            @include truncate-lines(1);
+            @include on-large-screen-only
         }
     }
 }
@@ -105,6 +110,10 @@
     
         .thumbnail img {
             height: 240px;
+        }
+
+        .info .show-title {
+            @include truncate-lines(1);
         }
 
         .title {

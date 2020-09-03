@@ -1,4 +1,5 @@
 .channel-player-container {
+    --thumbnail-width: #{$big_thumbnail_width};
     margin: auto;
 
     .left-arrow {
@@ -8,21 +9,76 @@
     }
 
     .current-broadcast-info-container {
-        .current-broadcast-thumbnail {
-            width: 270px;
-            margin: 32px auto 32px auto;
-            display: block;
-            border-radius: 8px;
-            box-shadow: 0 4px 5px 1px #DDD;
+        margin: auto;
+        
+        .current-broadcast-thumbnail-container {
+            position: relative;
+            width: var(--thumbnail-width);
+            margin: auto;
+            
+            .current-broadcast-thumbnail {
+                width: var(--thumbnail-width);
+                margin: 32px auto 32px auto;
+                display: block;
+                box-shadow: 0 4px 5px 1px #DDD;
+                border-radius: 8px;
+            }
+            
+            .play-channel-button-container {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                border-radius: 8px;
+                background: linear-gradient(black, transparent 67%);
+                opacity: 0;
+                transition: opacity .3s ease-in-out;
+                
+                button {
+                    font-size: var(--text-font-size);
+                    font-weight: bold;
+                    display: block;
+                    margin-left: calc(1em - 8px);
+                    color: white;
+                    padding: 8px 16px;
+                    transition: background-color .3s ease-in-out, color .3s ease-in-out;
+                    border-radius: 4px;
+                    
+                    &:first-child {
+                        margin-top: calc(1em - 8px);
+                    }
+                    
+                    svg {
+                        height: 1em;
+                        margin-bottom: -.1em;
+                        margin-right: .2em;
+                    }
+
+                    &:hover {
+                        background-color: #ffffff22;
+                    }
+                }
+
+                &:hover,
+                &.force-visible {
+                    opacity: 1;
+                }
+            }
+
         }
     
         .current-broadcast-show {
             @include text($size: 20px, $weight: 300, $transform: uppercase, $align: center);
-            margin-bottom: 8px;
         }
     
         .current-broadcast-title {
             @include text($size: 20px, $weight: bold, $align: center);
+            margin-bottom: 24px;
+        }
+
+        .current-broadcast-station {
+            @include text($size: 16px, $weight: 300, $align: center, $style: italic);
             margin-bottom: 24px;
         }
     }
@@ -32,9 +88,6 @@
         margin-bottom: 32px;
     }
 
-    .channel-title {
-        margin-bottom: 8px;
-    }
 
     .next-broadcast {
         margin-bottom: 8px;
@@ -54,6 +107,7 @@
     }
 
     @media only screen and (min-width: $player_medium_breakpoint) {
+        --thumbnail-size: #{$big_thumbnail_width};
 
         margin: 32px;
 
@@ -63,13 +117,11 @@
         }
 
         .current-broadcast-thumbnail {
-            width: 350px;
             margin: 64px auto 32px auto;
         }
 
         .current-broadcast-show {
             font-size: 24px;
-            margin-bottom: 8px;
         }
     
         .current-broadcast-title {
@@ -92,22 +144,23 @@
     }
 
     @media only screen and (min-width: $player_big_breakpoint) {
-        --thumbnail-width: #{$big_thumbnail_width};
         --titles-font-size: 24px;
         --text-font-size: 16px;
         --schedule-button-font-size: 14px;
+
         @media only screen and (min-width: $player_large_breakpoint) {
             --thumbnail-width: #{$large_thumbnail_width};
             --titles-font-size: 32px;
             --text-font-size: 20px;
             --schedule-button-font-size: 16px;
         }
+
         .current-broadcast-info-container {
             display: flex;
             width: calc(3 * var(--thumbnail-width) + 32px);
             margin: 64px auto 48px auto;
 
-            .current-broadcast-thumbnail {
+            .current-broadcast-thumbnail-container .current-broadcast-thumbnail {
                 margin: 0;
                 width: var(--thumbnail-width);
             }
@@ -122,6 +175,11 @@
                     font-size: var(--titles-font-size);
                 }
 
+                .current-broadcast-station {
+                    text-align: left;
+                    font-size: var(--text-font-size);
+                }
+
                 .current-broadcast-summary {
                     margin-bottom: 0;
                     font-size: var(--text-font-size);
@@ -132,10 +190,7 @@
         .channel-info-container {
             width: calc(3 * var(--thumbnail-width) + 32px);
             margin: auto;
-            
-            .channel-title {
-                font-size: var(--titles-font-size);
-            }
+        
 
             .next-broadcast {
                 font-size: var(--text-font-size);

@@ -12,6 +12,6 @@ export default function LinkableText({href, className, isBlock, target, children
     } else {
         return href ? 
             <a href={href} target={target} className={className + " link"}>{children}</a> :
-            <p className={className}>{children}</p>
+            <span className={className}>{children}</span>
     }
 }

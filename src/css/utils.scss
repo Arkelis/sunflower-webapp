@@ -1,4 +1,4 @@
-@mixin large-only($display_mode: block) {
+@mixin on-large-screen-only($display_mode: block) {
     display: none;
 
     @media only screen and (min-width: $list_large_breakpoint) {
@@ -14,4 +14,11 @@
     text-transform: $transform;
     text-align: $align;
     hyphens: $hyphens;
+}
+
+@mixin truncate-lines($number_of_lines) {
+    display: -webkit-box;
+    -webkit-line-clamp: $number_of_lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }

@@ -1,3 +1,6 @@
+
+// Sizes
+
 $vertical_card_width: 320px;
 $horizontal_card_width: 720px;
 
@@ -13,5 +16,10 @@ $large_info_width: 700px;
 $player_big_breakpoint: calc(#{$big_thumbnail_width} + #{$big_info_width} + 32px + 128px);
 $player_large_breakpoint: calc(#{$large_thumbnail_width} + #{$large_info_width} + 32px + 128px); 
 
+// Fonts
+
 $sans_serif: "Fira Sans", "sans-serif";
 $sans_serif_condensed: "Fira Sans Condensed", "sans-serif";
+
+// Colors
+$lightgrey: #F4F4F4;
