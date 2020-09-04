@@ -1,27 +1,26 @@
-import React, { useRef, useState, useCallback } from "react"
+import React, { useRef, useState, useCallback, useEffect } from "react"
 
 export default function Player({mode, channel}) {
-    // if (channel.currentStep === undefined) return ""
     const audioElement = useRef(null)
-    const [play, setPlay] = useState(false)
+    const [play, setPlay] = useState(true)
     const [volume, setVolume] = useState(1)
-    console.log(volume)
     if (audioElement.current) audioElement.current.volume = volume
     const currentBroadcast = channel.currentStep.broadcast
     const displayProgressBar = channel.currentStep.end !== 0
     const startDate = new Date(channel.currentStep.start * 1000)
     const endDate = new Date(channel.currentStep.end * 1000)
-    const togglePlay = useCallback(() => {
-        setPlay(!play)
-        if (!play) {
+
+    useEffect(() => {
+        if (play) {
             audioElement.current.play()
         } else {
             audioElement.current.pause()
         }
-    })
+    }, [play])
+
     return <div className="player">
         <div className="player__controls">
-            <button onClick={togglePlay} className="play-button"><img src={play ? "/stop-solid.svg" : "/play-solid.svg"}/></button>
+            <button onClick={() => setPlay(!play)} className="play-button"><img src={play ? "/stop-solid.svg" : "/play-solid.svg"}/></button>
             <div className="volume-controls">
                 <button>
                     <object type="image/svg+xml" data="/volume-up-solid.svg" className="icon--volume">

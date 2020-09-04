@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react"
+import React, { useState, useEffect } from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import 'regenerator-runtime/runtime'
 
@@ -10,10 +10,10 @@ import Player from "./components/Player"
 
 export default function App() {
 
-    const [selectedChannel, setSelectedChannel] = useState("")
+    const [onAirChannel, setOnAirChannel] = useState("")
     const [channelData, setChannelData] = useState({})
     const [channelEndpoints, setChannelEndpoints] = useState([])
-    const [playerMode, setPlayerMode] = useState("normal") // normal / simple / simpleBig
+    const [playerMode, setPlayerMode] = useState("normal") // normal / fullscreen
     const [loading, setLoading] = useState(true)
 
     // const apiHost = "https://api.radio.pycolore.fr"
@@ -80,13 +80,13 @@ export default function App() {
                     <ChannelsList channels={channelData} setPlayerMode={setPlayerMode} />
                 </Route>
                 <Route exact path="/:name">
-                    <OnAir channels={channelData} setChannel={setSelectedChannel} setPlayerMode={setPlayerMode} />
+                    <OnAir channels={channelData} playingChannelName={onAirChannel.endpoint} setOnAirChannel={setOnAirChannel} setPlayerMode={setPlayerMode} />
                 </Route>
                 <Route exact path="/:name/schedule">
                     <Schedule setPlayerMode={setPlayerMode} />
                 </Route>
             </Switch>
         </Router>
-        {selectedChannel === "" ? "" : <Player mode={playerMode} channel={selectedChannel} />}
+        {onAirChannel === "" ? "" : <Player mode={playerMode} channel={onAirChannel} />}
     </>
 }

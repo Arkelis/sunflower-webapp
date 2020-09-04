@@ -43,7 +43,7 @@
 
         .next-title {
             @include truncate-lines(1);
-            @include on-large-screen-only
+            @include on-large-screen-only(-webkit-box);
         }
     }
 }
