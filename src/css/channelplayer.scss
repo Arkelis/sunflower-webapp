@@ -2,10 +2,13 @@
     --thumbnail-width: #{$big_thumbnail_width};
     margin: auto;
 
-    .left-arrow {
-        height: 24px;
-        vertical-align: -10%;
-        margin-right: 8px;  
+    .go-back {
+        vertical-align: -20%;
+        svg {
+            height: 24px;
+            margin-right: 8px;  
+            color: white;
+        }
     }
 
     .current-broadcast-info-container {
@@ -20,7 +23,7 @@
                 width: var(--thumbnail-width);
                 margin: 32px auto 32px auto;
                 display: block;
-                box-shadow: 0 4px 5px 1px #DDD;
+                box-shadow: 0 4px 5px 1px var(--shadow-color);
                 border-radius: 8px;
             }
             
@@ -53,6 +56,10 @@
                         height: 1em;
                         margin-bottom: -.1em;
                         margin-right: .2em;
+                    }
+
+                    path {
+                        color: white;
                     }
 
                     &:hover {
@@ -111,7 +118,7 @@
 
         margin: 32px;
 
-        .left-arrow {
+        .go-back svg {
             height: 32px;
             margin-right: 16px;
         }

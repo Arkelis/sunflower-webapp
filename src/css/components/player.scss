@@ -178,7 +178,7 @@
             }
 
             &:hover  {
-                background-color: $lightgrey;
+                background-color: var(--lightgrey);
                 border-radius: 5px;
              
                 input[type="range"].volume-slider {

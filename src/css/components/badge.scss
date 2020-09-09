@@ -1,11 +1,12 @@
 .badge {
-    background-color: $lightgrey;
+    background-color: var(--lightgrey);
     font-family: "Fira Sans Condensed", 'sans-serif';
     font-weight: 400;
     border-radius: 4px;
     padding: .420em .570em;
     margin-bottom: 4px;
     display: inline-block;
+
 }
 
 .badge--inverted {
@@ -20,13 +21,13 @@
     transition: background-color .3s ease-in-out;
 
     &:hover {
-        background-color: $lightgrey;
+        background-color: var(--lightgrey);
     }
 }
 
 .badge.button:hover,
 .card.button:hover {
-    background-color: #DDD;
+    background-color: var(--grey);
 }
 
 .button--text {

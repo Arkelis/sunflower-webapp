@@ -22,4 +22,11 @@ $sans_serif: "Fira Sans", "sans-serif";
 $sans_serif_condensed: "Fira Sans Condensed", "sans-serif";
 
 // Colors
-$lightgrey: #F4F4F4;
+:root {
+    --lightgrey: #F4F4F4;
+    --grey: #DDD;
+    --font-black: #000;
+    --font-white: #fff;
+    --background-color: #fff;
+    --shadow-color: #DDD;
+}

@@ -35,7 +35,11 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
     console.log("State: ", isPlaying, channel)
     return <div className="channel-player-container">
         <Link to="/">
-            <h2 className="button button--text"><img className="left-arrow" src="/arrow-left-solid.svg"/>Chaîne {channel.name}</h2>
+            <h2 className="button button--text">
+                <button className="go-back">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>
+                </button>
+                Chaîne {channel.name}</h2>
         </Link>
         <div className="current-broadcast-info-container">
             <div className="current-broadcast-thumbnail-container">
@@ -54,7 +58,7 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
                 </div>
             </div>
             <div className="main-info">
-                <LinkableText target="_blank" isBlock={true} href={currentBroadcast.show_link} className="current-broadcast-show">{currentBroadcast.show_title}</LinkableText>
+                <LinkableText target="_blank" isBlock={true} href={currentBroadcast.show_link} className="current-broadcast-show">{currentBroadcast.parent_show_title ? currentBroadcast.parent_show_title + " - " : ""}{currentBroadcast.show_title}</LinkableText>
                 <div className="current-broadcast-station">
                     {currentBroadcast.show_title ? "sur " : "Vous écoutez " }<LinkableText target="_blank" href={currentBroadcast.station.website}>{currentBroadcast.station.name}</LinkableText>
                 </div>
