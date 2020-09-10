@@ -12,7 +12,7 @@ export default function ChannelsList({channels, setPlayerMode}) {
     return <>
         <div className="radio-title">
             <div className="ellipse"></div>
-            <h1 className="radio-name">Radio Pycolore</h1>
+            <h1 className="radio-name"><img className="radio-logo" src="https://www.pycolore.fr/assets/img/sunflower-dark-min.jpg" alt="Sunflower logo"/>Radio Pycolore</h1>
         </div>
         <div className="channels-list-container">
             <h2>En ce moment sur les chaînes</h2>

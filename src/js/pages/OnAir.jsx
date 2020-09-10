@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import LinkButton from "../components/Button";
 import LinkableText from "../components/LinkableText";
+import { backButton, playButton, stopButton } from "../svg";
 
 export default function OnAir({channels, playingChannelName, setOnAirChannel, setPlayerMode}) {
     const [channel, setChannel] = useState("")
@@ -36,9 +37,7 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
     return <div className="channel-player-container">
         <Link to="/">
             <h2 className="button button--text">
-                <button className="go-back">
-                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>
-                </button>
+                <button className="go-back">{backButton}</button>
                 Chaîne {channel.name}</h2>
         </Link>
         <div className="current-broadcast-info-container">
@@ -48,8 +47,8 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
                     <button onClick={togglePlayStation} className="play-channel-button">
                         {
                             isPlaying ?
-                            <><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="stop" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48z"></path></svg> Arrêter</> :
-                            <><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path></svg> Écouter</>
+                            <>{stopButton} Arrêter</> :
+                            <>{playButton} Écouter</>
                         }
                     </button>
                     {/* <button className="full-screen-button">
@@ -68,7 +67,7 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
         </div>
         <div className="channel-info-container">
             <div className="next-broadcast"><strong>À suivre : </strong>{(nextBroadcast.show_title ? nextBroadcast.show_title : nextBroadcast.title).toUpperCase()} <em>sur {nextBroadcast.station.name}</em></div>
-            <LinkButton to={`/${channel.endpoint}/schedule`} className="go-to-schedule">Voir le programme</LinkButton>
+            {/* <LinkButton to={`/${channel.endpoint}/schedule`} className="go-to-schedule">Voir le programme</LinkButton> */}
         </div>
     </div>
 }

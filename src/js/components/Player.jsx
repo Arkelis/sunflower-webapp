@@ -1,4 +1,5 @@
 import React, { useRef, useState, useCallback, useEffect } from "react"
+import { stopButton, playButton, volumeButton } from "../svg"
 
 export default function Player({mode, channel}) {
     const audioElement = useRef(null)
@@ -20,13 +21,11 @@ export default function Player({mode, channel}) {
 
     return <div className="player">
         <div className="player__controls">
-            <button onClick={() => setPlay(!play)} className="play-button"><img src={play ? "/stop-solid.svg" : "/play-solid.svg"}/></button>
+            <button onClick={() => setPlay(!play)} className="play-button">
+                { play ? stopButton : playButton}
+            </button>
             <div className="volume-controls">
-                <button>
-                    <object type="image/svg+xml" data="/volume-up-solid.svg" className="icon--volume">
-                        Volume controller
-                    </object>
-                </button>
+                <button class="icon-volume">{volumeButton}</button>
                 <input type="range" min="0" max="1" step="0.01" value={volume} onChange={(e) => setVolume(e.target.value)} className="volume-slider"/>
             </div>
         </div>

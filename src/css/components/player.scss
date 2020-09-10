@@ -1,6 +1,6 @@
 .player {
-    background-color: #fff;
-    border-top: solid #ddd 1px;
+    background-color: var(--background-color);
+    border-top: solid var(--grey) 1px;
     position: fixed;
     padding: 8px 16px;
     left: 0;
@@ -52,7 +52,7 @@
             }
 
             .progress {
-                background-color: #000;
+                background-color: var(--font-black);
                 height: 1.5px;
                 width: 100%;
                 margin: 0 8px;
@@ -67,7 +67,8 @@
         align-content: center;
 
         .play-button {
-            img {
+            line-height: 0;
+            svg {
                 width: 24px;
             }
         }
@@ -75,8 +76,9 @@
         .volume-controls {
             display: none;
             
-            .icon--volume {
+            .icon-volume {
                 width: 24px;
+                line-height: 0;
             }
             
             input[type="range"].volume-slider {
@@ -92,8 +94,8 @@
                 outline: none;
             }
             input[type="range"].volume-slider::-webkit-slider-runnable-track {
-                background: #000000;
-                border: 0px solid rgba(0, 0, 0, 0);
+                background: var(--font-black);
+                border: 0px solid var(--font-black);
                 border: 0;
                 border-radius: 25px;
                 width: 100%;
@@ -104,18 +106,18 @@
                 margin-top: -6.5px;
                 width: 12px;
                 height: 12px;
-                background: #000000;
-                border: 1px solid rgba(0, 0, 0, 0);
+                background: var(--font-black);
+                border: 1px solid var(--font-black);
                 border-radius: 8px;
                 cursor: pointer;
                 -webkit-appearance: none;
             }
             input[type="range"].volume-slider:focus::-webkit-slider-runnable-track {
-                background: #000000;
+                background: var(--font-black);
             }
             input[type="range"].volume-slider::-moz-range-track {
-                background: #000000;
-                border: 0px solid rgba(0, 0, 0, 0);
+                background: var(--font-black);
+                border: 0px solid var(--font-black);
                 border: 0;
                 border-radius: 25px;
                 width: 100%;
@@ -125,8 +127,8 @@
             input[type="range"].volume-slider::-moz-range-thumb {
                 width: 12px;
                 height: 12px;
-                background: #000000;
-                border: 1px solid rgba(0, 0, 0, 0);
+                background: var(--font-black);
+                border: 1px solid var(--font-black);
                 border-radius: 8px;
                 cursor: pointer;
             }
@@ -140,32 +142,32 @@
                 cursor: pointer;
             }
             input[type="range"].volume-slider::-ms-fill-lower {
-                background: #000000;
-                border: 0px solid rgba(0, 0, 0, 0);
+                background: var(--font-black);
+                border: 0px solid var(--font-black);
                 border: 0;
                 border-radius: 50px;
             }
             input[type="range"].volume-slider::-ms-fill-upper {
-                background: #000000;
-                border: 0px solid rgba(0, 0, 0, 0);
+                background: var(--font-black);
+                border: 0px solid var(--font-black);
                 border: 0;
                 border-radius: 50px;
             }
             input[type="range"].volume-slider::-ms-thumb {
                 width: 12px;
                 height: 12px;
-                background: #000000;
-                border: 1px solid rgba(0, 0, 0, 0);
+                background: var(--font-black);
+                border: 1px solid var(--font-black);
                 border-radius: 8px;
                 cursor: pointer;
                 margin-top: 0px;
                 /*Needed to keep the Edge thumb centred*/
             }
             input[type="range"].volume-slider:focus::-ms-fill-lower {
-                background: #000000;
+                background: var(--font-black);
             }
             input[type="range"].volume-slider:focus::-ms-fill-upper {
-                background: #000000;
+                background: var(--font-black);
             }
             /*TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
             how to remove the virtical space around the range input in IE*/

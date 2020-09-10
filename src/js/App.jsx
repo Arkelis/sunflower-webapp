@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
 import 'regenerator-runtime/runtime'
 
 import ChannelsList from "./pages/ChannelsList";
@@ -84,6 +84,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/:name/schedule">
                     <Schedule setPlayerMode={setPlayerMode} />
+                </Route>
+                <Route path="*">
+                    <Redirect to="/"/>
                 </Route>
             </Switch>
         </Router>
