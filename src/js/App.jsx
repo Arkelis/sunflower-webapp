@@ -6,6 +6,7 @@ import ChannelsList from "./pages/ChannelsList";
 import OnAir from "./pages/OnAir";
 import Schedule from "./pages/Schedule";
 import Player from "./components/Player"
+import PycolorePlaylist from "./pages/PycolorePlaylist";
 
 
 export default function App() {
@@ -23,13 +24,15 @@ export default function App() {
         for (let endpoint of channelEndpoints) {
             const es = new EventSource(`${apiHost}/channels/${endpoint}/events/`)
             es.onmessage = async (message) => {
+                console.log(endpoint, message.data)
                 if (message.data === "unchanged") return
                 const newChannelData = channelData
                 const currentStep = await getChannelStep(endpoint, "current")
                 const nextStep = await getChannelStep(endpoint, "next")
                 newChannelData[endpoint].currentStep = currentStep
                 newChannelData[endpoint].nextStep = nextStep
-                setChannelData({ ...newChannelData })
+                console.log(newChannelData)
+                setChannelData(newChannelData)
             }
         }
     }, [channelEndpoints])
@@ -84,6 +87,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/:name/schedule">
                     <Schedule setPlayerMode={setPlayerMode} />
+                </Route>
+                <Route path="/pycolore/playlist">
+                    <PycolorePlaylist apiHost={apiHost}/>
                 </Route>
                 <Route path="*">
                     <Redirect to="/"/>

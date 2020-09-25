@@ -25,7 +25,7 @@ export default function Player({mode, channel}) {
                 { play ? stopButton : playButton}
             </button>
             <div className="volume-controls">
-                <button class="icon-volume">{volumeButton}</button>
+                <button className="icon-volume">{volumeButton}</button>
                 <input type="range" min="0" max="1" step="0.01" value={volume} onChange={(e) => setVolume(e.target.value)} className="volume-slider"/>
             </div>
         </div>

@@ -33,7 +33,6 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
     const currentBroadcast = channel.currentStep.broadcast
     const nextBroadcast = channel.nextStep.broadcast
     console.log("Render OnAir")
-    console.log("State: ", isPlaying, channel)
     return <div className="channel-player-container">
         <Link to="/">
             <h2 className="button button--text">
