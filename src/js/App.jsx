@@ -17,8 +17,8 @@ export default function App() {
     const [playerMode, setPlayerMode] = useState("normal") // normal / fullscreen
     const [loading, setLoading] = useState(true)
 
-    // const apiHost = "https://api.radio.pycolore.fr"
-    const apiHost = "http://192.168.1.52:8000"
+    const apiHost = "https://api.radio.pycolore.fr"
+    // const apiHost = "http://192.168.1.52:8000"
 
     useEffect(() => {
         for (let endpoint of channelEndpoints) {
@@ -26,12 +26,11 @@ export default function App() {
             es.onmessage = async (message) => {
                 console.log(endpoint, message.data)
                 if (message.data === "unchanged") return
-                const newChannelData = channelData
+                const newChannelData = { ...channelData }
                 const currentStep = await getChannelStep(endpoint, "current")
                 const nextStep = await getChannelStep(endpoint, "next")
                 newChannelData[endpoint].currentStep = currentStep
                 newChannelData[endpoint].nextStep = nextStep
-                console.log(newChannelData)
                 setChannelData(newChannelData)
             }
         }

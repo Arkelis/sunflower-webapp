@@ -8,7 +8,7 @@ export default function PycolorePlaylist({apiHost}) {
     useEffect(() => {
         async function fetchPlaylist() {
             console.log("coucou")
-            const resp = await fetch(`${apiHost}/stations/pycolore/playlist?shape=groupartist`)
+            const resp = await fetch(`${apiHost}/stations/pycolore/playlist/?shape=groupartist`)
             const json = await resp.json()
             setPlaylist(json)
         }
