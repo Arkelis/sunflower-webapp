@@ -58,7 +58,7 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
             <div className="main-info">
                 <LinkableText target="_blank" isBlock={true} href={currentBroadcast.show_link} className="current-broadcast-show">{currentBroadcast.show_title}</LinkableText>
                 <div className="current-broadcast-station">
-                    {currentBroadcast.parent_show_title ? "dans " + <LinkableText target="_blank" href={currentBroadcast.parent_show_link}>{currentBroadcast.parent_show_title}</LinkableText> + " " : ""}
+                    {currentBroadcast.parent_show_title ? <>dans <LinkableText target="_blank" href={currentBroadcast.parent_show_link}>{currentBroadcast.parent_show_title}</LinkableText> </> : ""}
                     {currentBroadcast.show_title ? "sur " : "Vous écoutez " }<LinkableText target="_blank" href={currentBroadcast.station.website}>{currentBroadcast.station.name}</LinkableText>
                 </div>
                 <LinkableText target="_blank" isBlock={true} href={currentBroadcast.link} className="current-broadcast-title">{currentBroadcast.title}</LinkableText>
