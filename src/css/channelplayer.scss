@@ -167,9 +167,13 @@
             width: calc(3 * var(--thumbnail-width) + 32px);
             margin: 64px auto 48px auto;
 
-            .current-broadcast-thumbnail-container .current-broadcast-thumbnail {
+            .current-broadcast-thumbnail-container {
                 margin: 0;
-                width: var(--thumbnail-width);
+            
+                .current-broadcast-thumbnail {
+                    margin: 0;
+                    width: var(--thumbnail-width);
+                }
             }
 
             .main-info {
