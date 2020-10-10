@@ -17,14 +17,13 @@ export default function App() {
     const [playerMode, setPlayerMode] = useState("normal") // normal / fullscreen
     const [loading, setLoading] = useState(true)
 
-    // const apiHost = "https://api.radio.pycolore.fr"
-    const apiHost = "http://192.168.1.52:8000"
+    const apiHost = "https://api.radio.pycolore.fr"
+    // const apiHost = "http://192.168.1.52:8000"
 
     useEffect(() => {
         if (channelEndpoints.length == 0) return
         const es = new EventSource(`${apiHost}/events`)
         es.onmessage = async (message) => {
-            console.log(message)
             const data = JSON.parse(message.data)
             const endpoint = data.channel
             const newChannelData = { ...channelData }
@@ -74,7 +73,6 @@ export default function App() {
         return { endpoint: endpoint, name: json.name, schedule: json.schedule, audio_stream: json.audio_stream }
     }
 
-    console.log("Render App.")
     if (loading) return "Chargement"
     return <>
         <Router>

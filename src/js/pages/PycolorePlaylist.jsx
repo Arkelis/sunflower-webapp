@@ -7,7 +7,6 @@ export default function PycolorePlaylist({apiHost}) {
 
     useEffect(() => {
         async function fetchPlaylist() {
-            console.log("coucou")
             const resp = await fetch(`${apiHost}/stations/pycolore/playlist/?shape=groupartist`)
             const json = await resp.json()
             setPlaylist(json)
@@ -33,10 +32,10 @@ export default function PycolorePlaylist({apiHost}) {
             }
             groups.push(
                 <>
-                    {/* <tr className="artist-row">
+                    <tr className="artist-row">
                         <td></td>
                         <td colSpan='2' className='artist-cell'>{artist}</td>
-                    </tr> */}
+                    </tr>
                     <tr>
                         <th className="artist-th" rowSpan={size} scope="rowgroup">{artist}</th>
                         <td>{songs[0].title}</td>

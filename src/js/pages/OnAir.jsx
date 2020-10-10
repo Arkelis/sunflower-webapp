@@ -10,7 +10,7 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
     const channelFromProps = channels[name]
     const [isPlaying, setIsPlaying] = useState(playingChannelName === name)
     
-    useEffect(() => {
+    useEffect(function() {
         document.title = `Chaîne ${channel.name} | Radio Pycolore`
     })
     
@@ -32,7 +32,7 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
     if (!channel) return ""
     const currentBroadcast = channel.currentStep.broadcast
     const nextBroadcast = channel.nextStep.broadcast
-    console.log("Render OnAir")
+    const nextStepStart = new Date(channel.nextStep.start * 1000)
     return <div className="channel-player-container">
         <Link to="/">
             <h2 className="button button--text">
@@ -56,8 +56,9 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
                 </div>
             </div>
             <div className="main-info">
-                <LinkableText target="_blank" isBlock={true} href={currentBroadcast.show_link} className="current-broadcast-show">{currentBroadcast.parent_show_title ? currentBroadcast.parent_show_title + " - " : ""}{currentBroadcast.show_title}</LinkableText>
+                <LinkableText target="_blank" isBlock={true} href={currentBroadcast.show_link} className="current-broadcast-show">{currentBroadcast.show_title}</LinkableText>
                 <div className="current-broadcast-station">
+                    {currentBroadcast.parent_show_title ? "dans " + <LinkableText target="_blank" href={currentBroadcast.parent_show_link}>{currentBroadcast.parent_show_title}</LinkableText> + " " : ""}
                     {currentBroadcast.show_title ? "sur " : "Vous écoutez " }<LinkableText target="_blank" href={currentBroadcast.station.website}>{currentBroadcast.station.name}</LinkableText>
                 </div>
                 <LinkableText target="_blank" isBlock={true} href={currentBroadcast.link} className="current-broadcast-title">{currentBroadcast.title}</LinkableText>
@@ -65,7 +66,7 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
             </div>
         </div>
         <div className="channel-info-container">
-            <div className="next-broadcast"><strong>À suivre : </strong>{(nextBroadcast.show_title ? nextBroadcast.show_title : nextBroadcast.title).toUpperCase()} <em>sur {nextBroadcast.station.name}</em></div>
+            <div className="next-broadcast"><strong>À suivre à {new Intl.NumberFormat('fr-FR', {minimumIntegerDigits: 2}).format(nextStepStart.getHours())}&nbsp;h&nbsp;{new Intl.NumberFormat('fr-FR', {minimumIntegerDigits: 2}).format(nextStepStart.getMinutes())}&nbsp;: </strong>{nextBroadcast.show_title ? nextBroadcast.show_title : nextBroadcast.title} <em>sur {nextBroadcast.station.name}</em></div>
             {/* <LinkButton to={`/${channel.endpoint}/schedule`} className="go-to-schedule">Voir le programme</LinkButton> */}
         </div>
     </div>

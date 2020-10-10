@@ -25,7 +25,7 @@ export default function Card({channel}) {
                 </div>
                 <div className="title"><strong>{broadcast.title}</strong></div>
                 <div className="next-title">
-                    <span className="badge badge--inverted">À suivre</span> {(nextBroadcast.show_title ? nextBroadcast.show_title : nextBroadcast.title).toUpperCase()} <em>sur {nextBroadcast.station.name}</em>
+                    <span className="badge badge--inverted">À suivre</span> {nextBroadcast.show_title ? nextBroadcast.show_title : nextBroadcast.title} <em>sur {nextBroadcast.station.name}</em>
                 </div>
             </div>
         </div>
