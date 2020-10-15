@@ -4,8 +4,8 @@ import { stopButton, playButton, volumeButton } from "../svg"
 export default function Player({mode, channel}) {
     const audioElement = useRef(null)
     const [play, setPlay] = useState(true)
-    const [volume, setVolume] = useState(1)
-    if (audioElement.current) audioElement.current.volume = volume
+    const [volume, setVolume] = useState(parseFloat(localStorage.getItem("radiopycolore__volume")) || 1)
+    const [timestamp, setTimestamp] = useState(Date.now())
     const currentBroadcast = channel.currentStep.broadcast
     const displayProgressBar = channel.currentStep.end !== 0
     const startDate = new Date(channel.currentStep.start * 1000)
@@ -15,9 +15,19 @@ export default function Player({mode, channel}) {
         if (play) {
             audioElement.current.play()
         } else {
-            audioElement.current.pause()
+            audioElement.current.load()
+            setTimestamp(Date.now())
         }
     }, [play])
+
+    useEffect(() => {
+        localStorage.setItem('radiopycolore__volume', volume)
+        if (audioElement.current) audioElement.current.volume = volume
+    }, [volume])
+
+    useEffect(() => {
+        if (play) audioElement.current.play()
+    }, [channel.endpoint])
 
     return <div className="player">
         <div className="player__controls">
@@ -49,6 +59,6 @@ export default function Player({mode, channel}) {
 
             }
         </div>
-        <audio ref={audioElement} src={channel.audio_stream}></audio>
+        <audio ref={audioElement} src={channel.audio_stream + `?t=${timestamp}`}></audio>
     </div>
 }
