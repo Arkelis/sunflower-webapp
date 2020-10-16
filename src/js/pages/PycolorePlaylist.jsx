@@ -19,9 +19,11 @@ export default function PycolorePlaylist({apiHost}) {
 
     const filterPlaylist = event => {
         let input = event.target.value.toLowerCase();
-        let copyPlaylist = Object.assign({}, playlist)
+        let copyPlaylist = {...playlist}
         Object.keys(copyPlaylist).forEach(key => {
-            copyPlaylist[key] = filterArtist(copyPlaylist[key], input)
+            copyPlaylist[key] = key.toLowerCase().includes(input) ?
+                copyPlaylist[key] :
+                filterArtist(copyPlaylist[key], input)
         });
         setFilteredPlaylist(copyPlaylist);
     }
@@ -51,6 +53,10 @@ export default function PycolorePlaylist({apiHost}) {
             }
             groups.push(
                 <>
+                    <tr className="artist-row">
+                        <td></td>
+                        <td colSpan='2' className='artist-cell'>{artist}</td>
+                    </tr>
                     <tr>
                         <th className="artist-th" rowSpan={size} scope="rowgroup">{artist}</th>
                         <td>{songs[0].title}</td>
@@ -66,8 +72,8 @@ export default function PycolorePlaylist({apiHost}) {
     return <>
         <h2>Playlist Pycolore</h2>
 
-        <input type="text" placeholder="Rechercher un titre ou un album..." onChange={filterPlaylist}/>
         <div id="playlist-wrapper">
+            <input type="text" placeholder="Rechercher un artiste ou un titre..." onChange={filterPlaylist}/>
             <table>
                 <colgroup>
                     <col span='1' id="artist-col"/>
