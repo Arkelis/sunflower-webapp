@@ -7,7 +7,8 @@ import OnAir from "./pages/OnAir";
 import Schedule from "./pages/Schedule";
 import Player from "./components/Player"
 import PycolorePlaylist from "./pages/PycolorePlaylist";
-
+import ThemeContext from "./context/ThemeContext"
+import Theme from "./theme.js"
 
 export default function App() {
 
@@ -16,6 +17,7 @@ export default function App() {
     const [channelEndpoints, setChannelEndpoints] = useState([])
     const [playerMode, setPlayerMode] = useState("normal") // normal / fullscreen
     const [loading, setLoading] = useState(true)
+    const [theme, setTheme] = useState(Theme.getLocalTheme())
 
     const apiHost = "https://api.radio.pycolore.fr"
     // const apiHost = "http://192.168.1.52:8000"
@@ -38,6 +40,9 @@ export default function App() {
 
     useEffect(() => {
         fetchChannelData()
+
+        let root = document.getElementsByTagName("html")[0]
+        theme == "dark" ?  root.classList.add("dark") : root.classList.add("light")
     }, [])
 
     const fetchChannelData = async () => {
@@ -74,7 +79,8 @@ export default function App() {
     }
 
     if (loading) return "Chargement"
-    return <>
+    return (
+    <ThemeContext.Provider value={{theme, setTheme}}>
         <Router>
             <Switch>
                 <Route exact path="/">
@@ -95,5 +101,6 @@ export default function App() {
             </Switch>
         </Router>
         {onAirChannel === "" ? "" : <Player mode={playerMode} channel={onAirChannel} />}
-    </>
+    </ThemeContext.Provider >
+    )
 }

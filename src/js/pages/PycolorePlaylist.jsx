@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import 'regenerator-runtime/runtime'
+import ThemeSwitcher from "../components/ThemeSwitcher";
 
 export default function PycolorePlaylist({apiHost}) {
 
@@ -71,6 +71,7 @@ export default function PycolorePlaylist({apiHost}) {
 
     return <>
         <h2>Playlist Pycolore</h2>
+        <ThemeSwitcher />
 
         <div id="playlist-wrapper">
             <input type="text" placeholder="Rechercher un artiste ou un titre..." onChange={filterPlaylist}/>

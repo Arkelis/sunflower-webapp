@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import LinkButton from "../components/Button";
 import LinkableText from "../components/LinkableText";
 import { backButton, playButton, stopButton } from "../svg";
+import ThemeSwitcher from "../components/ThemeSwitcher";
 
 export default function OnAir({channels, playingChannelName, setOnAirChannel, setPlayerMode}) {
     const [channel, setChannel] = useState("")
@@ -39,6 +39,8 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
                 <button className="go-back">{backButton}</button>
                 Chaîne {channel.name}</h2>
         </Link>
+        <ThemeSwitcher />
+
         <div className="current-broadcast-info-container">
             <div className="current-broadcast-thumbnail-container">
                 <img className="current-broadcast-thumbnail" src={currentBroadcast.thumbnail_src} alt={`${currentBroadcast.title} thumbnail`}/>
