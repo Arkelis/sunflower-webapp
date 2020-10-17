@@ -40,6 +40,18 @@
         }
     }
 
+    input {
+        background: inherit;
+        width: 100%;
+        height: 2em;
+        border: 2px solid grey;
+        border-radius: 4em;
+        padding: 1em;
+        font-family: inherit;
+        font-size: 16px;
+        outline: none;
+        margin-bottom: 2em;
+    }
 }
 
 
