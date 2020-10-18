@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import 'regenerator-runtime/runtime'
 
 export default function PycolorePlaylist({apiHost}) {
 
-    const [playlist, setPlaylist] = useState([])
+    const [playlist, setPlaylist] = useState({})
     const [filteredPlaylist, setFilteredPlaylist] = useState([])
 
     useEffect(() => {
@@ -45,25 +45,25 @@ export default function PycolorePlaylist({apiHost}) {
             const songsRows = []
             for (let i = 1; i < size; i++) {
                 songsRows.push(
-                    <tr>
+                    <tr key={i}>
                         <td>{songs[i].title}</td>
                         <td>{songs[i].album}</td>
                     </tr>
                 )
             }
             groups.push(
-                <>
-                    <tr className="artist-row">
+                <Fragment key={artist}>
+                    <tr key={artist} className="artist-row">
                         <td></td>
                         <td colSpan='2' className='artist-cell'>{artist}</td>
                     </tr>
-                    <tr>
+                    <tr key='0'>
                         <th className="artist-th" rowSpan={size} scope="rowgroup">{artist}</th>
                         <td>{songs[0].title}</td>
                         <td>{songs[0].album}</td>
                     </tr>
                     {songsRows}
-                </>
+                </Fragment>
             )
         }
         return groups
@@ -73,7 +73,7 @@ export default function PycolorePlaylist({apiHost}) {
         <h2>Playlist Pycolore</h2>
 
         <div id="playlist-wrapper">
-            <input type="text" placeholder="Rechercher un artiste ou un titre..." onChange={filterPlaylist}/>
+            <input type="text" placeholder="Rechercher un artiste, titre ou un album..." onChange={filterPlaylist}/>
             <table>
                 <colgroup>
                     <col span='1' id="artist-col"/>
@@ -84,7 +84,7 @@ export default function PycolorePlaylist({apiHost}) {
                     <tr>
                         <th>Artiste</th>
                         <th>Titre</th>
-                        <th>Album</th>
+                        <th>Album Deezer</th>
                     </tr>
                 </thead>
                 <tbody>
