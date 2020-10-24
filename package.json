@@ -11,5 +11,9 @@
   },
   "devDependencies": {
     "sass": "^1.26.9"
+  },
+  "scripts": {
+    "start": "parcel --host 0.0.0.0 --port 8888 index.html",
+    "build": "rm -rf dist; parcel build --no-source-maps index.html  "
   }
 }
