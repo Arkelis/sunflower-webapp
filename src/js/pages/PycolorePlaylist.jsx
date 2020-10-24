@@ -78,7 +78,7 @@ export default function PycolorePlaylist({apiHost}) {
         <Link className="link" to="/">Retourner sur Radio Pycolore</Link>
 
         <div id="playlist-wrapper">
-            <input type="text" placeholder="Rechercher un artiste, titre ou un album..." onChange={filterPlaylist}/>
+            <input type="text" placeholder="Rechercher un artiste, un titre ou un album..." onChange={filterPlaylist}/>
             <table>
                 <colgroup>
                     <col span='1' id="artist-col"/>
