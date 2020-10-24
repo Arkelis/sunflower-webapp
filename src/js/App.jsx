@@ -101,7 +101,7 @@ export default function App() {
                         return <Redirect to="/"/>
                 }}
             />
-            <Route exact path="/pages/pycolore-playlist">
+            <Route exact path="/pages/playlist-pycolore">
                 <PycolorePlaylist apiHost={apiHost}/>
             </Route>
             <Route>
