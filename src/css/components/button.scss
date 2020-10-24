@@ -1,0 +1,16 @@
+button.go-back {
+    vertical-align: -20%;
+    svg {
+        height: 24px;
+        margin-right: 8px;  
+        color: white;
+    }
+}
+
+@media only screen and (min-width: $player_medium_breakpoint) {
+
+    button.go-back svg {
+        height: 32px;
+        margin-right: 16px;
+    }
+}

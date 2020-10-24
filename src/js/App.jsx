@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
 import 'regenerator-runtime/runtime'
+import { useLocation } from "react-router-dom";
 
 import ChannelsList from "./pages/ChannelsList";
 import OnAir from "./pages/OnAir";
@@ -15,7 +16,9 @@ export default function App() {
     const [channelData, setChannelData] = useState({})
     const [channelEndpoints, setChannelEndpoints] = useState([])
     const [playerMode, setPlayerMode] = useState("normal") // normal / fullscreen
-    const [loading, setLoading] = useState(true)
+    const currentLoc = useLocation()
+    const isPage = currentLoc.pathname.startsWith("/pages")
+    const [loading, setLoading] = useState(!isPage)
 
     const apiHost = "https://api.radio.pycolore.fr"
     // const apiHost = "http://192.168.1.52:8000"
@@ -37,8 +40,8 @@ export default function App() {
     }, [channelEndpoints])
 
     useEffect(() => {
-        fetchChannelData()
-    }, [])
+        if (!isPage) fetchChannelData()
+    }, [isPage])
 
     const fetchChannelData = async () => {
         const resp = await fetch(`${apiHost}/channels/`)
@@ -72,28 +75,39 @@ export default function App() {
         const json = await resp.json()
         return { endpoint: endpoint, name: json.name, schedule: json.schedule, audio_stream: json.audio_stream }
     }
+    console.log("Render App")
 
     if (loading) return "Chargement"
     return <>
-        <Router>
-            <Switch>
-                <Route exact path="/">
-                    <ChannelsList channels={channelData} setPlayerMode={setPlayerMode} />
-                </Route>
-                <Route exact path="/:name">
-                    <OnAir channels={channelData} playingChannelName={onAirChannel.endpoint} setOnAirChannel={setOnAirChannel} setPlayerMode={setPlayerMode} />
-                </Route>
-                <Route exact path="/:name/schedule">
-                    <Schedule setPlayerMode={setPlayerMode} />
-                </Route>
-                <Route path="/pycolore/playlist">
-                    <PycolorePlaylist apiHost={apiHost}/>
-                </Route>
-                <Route path="*">
-                    <Redirect to="/"/>
-                </Route>
-            </Switch>
-        </Router>
+        <Switch>
+            <Route exact path="/">
+                <ChannelsList channels={channelData} setPlayerMode={setPlayerMode} />
+            </Route>
+            <Route 
+                exact path="/:name"
+                render={({ match }) => {
+                    if (channelEndpoints.includes(match.params.name))
+                        return <OnAir channels={channelData} playingChannelName={onAirChannel.endpoint} setOnAirChannel={setOnAirChannel} setPlayerMode={setPlayerMode} />
+                    else
+                        return <Redirect to="/"/>
+                }}
+            />
+            <Route 
+                exact path="/:name/schedule"
+                render={({ match }) => {
+                    if (channelEndpoints.includes(match.params.name))
+                        return <Schedule setPlayerMode={setPlayerMode}/>
+                    else
+                        return <Redirect to="/"/>
+                }}
+            />
+            <Route exact path="/pages/pycolore-playlist">
+                <PycolorePlaylist apiHost={apiHost}/>
+            </Route>
+            <Route>
+                <Redirect to="/"/>
+            </Route>
+        </Switch>
         {onAirChannel === "" ? "" : <Player mode={playerMode} channel={onAirChannel} />}
     </>
 }

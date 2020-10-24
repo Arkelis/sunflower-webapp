@@ -1,4 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+
 import 'regenerator-runtime/runtime'
 
 export default function PycolorePlaylist({apiHost}) {
@@ -69,8 +71,11 @@ export default function PycolorePlaylist({apiHost}) {
         return groups
     }
 
+    console.log("Render playlist")
+
     return <>
         <h2>Playlist Pycolore</h2>
+        <Link className="link" to="/">Retourner sur Radio Pycolore</Link>
 
         <div id="playlist-wrapper">
             <input type="text" placeholder="Rechercher un artiste, titre ou un album..." onChange={filterPlaylist}/>
