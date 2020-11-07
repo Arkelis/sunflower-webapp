@@ -59,9 +59,9 @@ export default function App() {
                 nextStep: nextStep
             }
         }
+        setChannelEndpoints(endpoints)
         setChannelData(newChannelData)
         setLoading(false)
-        setChannelEndpoints(endpoints)
     }
 
     const getChannelStep = async (endpoint, stepType) => {
