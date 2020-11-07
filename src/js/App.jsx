@@ -59,8 +59,8 @@ export default function App() {
                 nextStep: nextStep
             }
         }
-        setChannelEndpoints(endpoints)
         setChannelData(newChannelData)
+        setChannelEndpoints(endpoints)
         setLoading(false)
     }
 
