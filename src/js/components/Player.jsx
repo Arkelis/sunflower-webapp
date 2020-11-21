@@ -13,7 +13,6 @@ export default function Player({channel}) {
         () => play ? channel.audio_stream + `?t=${Date.now()}`: "",
         [play, channel.endpoint]
     )
-    console.log(channel)
     useEffect(() => {
         if (play) {
             audioElement.current.play()

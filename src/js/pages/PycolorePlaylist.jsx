@@ -71,8 +71,6 @@ export default function PycolorePlaylist({apiHost}) {
         return groups
     }
 
-    console.log("Render playlist")
-
     return <>
         <h2>Playlist Pycolore</h2>
         <Link className="link" to="/">Retourner sur Radio Pycolore</Link>

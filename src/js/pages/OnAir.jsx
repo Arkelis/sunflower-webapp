@@ -24,7 +24,6 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
     
     const togglePlayStation = useCallback((isPlaying) => {
         const channelToSet = isPlaying ? "" : channel
-        console.log("channelToSet", channelToSet)
         setOnAirChannel(channelToSet)
         setIsPlaying(!isPlaying)
     }, [])

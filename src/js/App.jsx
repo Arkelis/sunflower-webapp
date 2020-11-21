@@ -76,8 +76,7 @@ export default function App() {
         const json = await resp.json()
         return { endpoint: endpoint, name: json.name, schedule: json.schedule, audio_stream: json.audio_stream }
     }
-    console.log("Render App")
-    console.log(onAirChannel)
+    // console.log("Render App")
 
     if (loading) return <div style={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "grid", "place-items": "center"}}>
         <h1>Radio Pycolore</h1>
