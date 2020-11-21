@@ -1,22 +1,25 @@
-import React, { useRef, useState, useCallback, useEffect } from "react"
+import React, { useRef, useState, useCallback, useEffect, useMemo } from "react"
 import { stopButton, playButton, volumeButton } from "../svg"
 
-export default function Player({mode, channel}) {
+export default function Player({channel}) {
     const audioElement = useRef(null)
     const [play, setPlay] = useState(true)
     const [volume, setVolume] = useState(parseFloat(localStorage.getItem("radiopycolore__volume")) || 1)
-    const [timestamp, setTimestamp] = useState(Date.now())
     const currentBroadcast = channel.currentStep.broadcast
     const displayProgressBar = channel.currentStep.end !== 0
     const startDate = new Date(channel.currentStep.start * 1000)
     const endDate = new Date(channel.currentStep.end * 1000)
-
+    const audioStreamUrl = useMemo(
+        () => play ? channel.audio_stream + `?t=${Date.now()}`: "",
+        [play, channel.endpoint]
+    )
+    console.log(channel)
     useEffect(() => {
         if (play) {
             audioElement.current.play()
         } else {
             audioElement.current.load()
-            setTimestamp(Date.now())
+            //setTimestamp(Date.now())
         }
     }, [play])
 
@@ -29,9 +32,11 @@ export default function Player({mode, channel}) {
         if (play) audioElement.current.play()
     }, [channel.endpoint])
 
+    const togglePlay = useCallback(() => setPlay(p => !p), [])
+
     return <div className="player">
         <div className="player__controls">
-            <button onClick={() => setPlay(!play)} className="play-button">
+            <button onClick={togglePlay} className="play-button">
                 { play ? stopButton : playButton}
             </button>
             <div className="volume-controls">
@@ -40,14 +45,10 @@ export default function Player({mode, channel}) {
             </div>
         </div>
         <div className="player-info">
-            {
-                mode === "normal" ?
-                <div className="text-info">
-                    <div className="player-info__channel-show"><strong>{channel.name} : </strong>{currentBroadcast.show_title.toUpperCase()} <em>{currentBroadcast.show_title ? "sur " : ""} {currentBroadcast.station.name}</em></div>
-                    <div className="player-info__title"><strong>{currentBroadcast.title}</strong></div>
-                </div> :
-                ""
-            }
+            <div className="text-info">
+                <div className="player-info__channel-show"><strong>{channel.name} : </strong>{currentBroadcast.show_title.toUpperCase()} <em>{currentBroadcast.show_title ? "sur " : ""} {currentBroadcast.station.name}</em></div>
+                <div className="player-info__title"><strong>{currentBroadcast.title}</strong></div>
+            </div>
             {
                 displayProgressBar ?
                 <div className="player-info__progress-bar">
@@ -59,6 +60,6 @@ export default function Player({mode, channel}) {
 
             }
         </div>
-        <audio ref={audioElement} src={channel.audio_stream + `?t=${timestamp}`}></audio>
+        <audio ref={audioElement} src={audioStreamUrl} preload="none"></audio>
     </div>
 }

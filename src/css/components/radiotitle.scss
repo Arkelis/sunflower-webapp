@@ -1,14 +1,14 @@
 .radio-title {
-    margin: -16px -16px 0 -16px;
     position: relative;
     overflow: hidden;
+    margin: -16px;
     
     .radio-name {
         text-align: center;
         font-size: 24px;
         color: white;
         margin-top: 32px;
-        margin-bottom: 56px;
+        margin-bottom: 48px;
     }
 
     .ellipse-container {
@@ -29,9 +29,9 @@
 
 @media only screen and (min-width: $list_medium_breakpoint) {
     .radio-title {
-        margin: -32px -32px 0 -32px;
-    
+        
         .radio-name {
+            margin-top: 48px;
             font-size: 32px;
             text-align: left;
             display: block;
@@ -41,7 +41,7 @@
         }
 
         .ellipse {
-            top: -300px;
+            top: -266px;
             left: -70%;
             width: 200%;
             height: 400px;

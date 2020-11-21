@@ -1,39 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
+import CSSDelayedTransition from "../components/CSSDelayedTransition"
 import LinkButton from "../components/Button";
 import LinkableText from "../components/LinkableText";
 import { backButton, playButton, stopButton } from "../svg";
 
 export default function OnAir({channels, playingChannelName, setOnAirChannel, setPlayerMode}) {
-    const [channel, setChannel] = useState("")
+    //const [channel, setChannel] = useState("")
     const { name } = useParams()
-    const channelFromProps = channels[name]
+    const channel = useMemo(() => channels[name], [name])
     const [isPlaying, setIsPlaying] = useState(playingChannelName === name)
     
     useEffect(function() {
         document.title = `Chaîne ${channel.name} | Radio Pycolore`
     })
     
-    useEffect(function() {
-        setChannel(channelFromProps)
-    }, [channels])
 
     useEffect(function() {
         if (isPlaying === (playingChannelName === name)) return
         setIsPlaying(playingChannelName === name)
     }, [playingChannelName])
     
-    const togglePlayStation = () => {
-        const channelToSet = isPlaying ? "" : channelFromProps
+    const togglePlayStation = useCallback((isPlaying) => {
+        const channelToSet = isPlaying ? "" : channel
+        console.log("channelToSet", channelToSet)
         setOnAirChannel(channelToSet)
         setIsPlaying(!isPlaying)
-    }
-    
-    if (!channel) return ""
+    }, [])
+
+    if (!channel) return <Fragment/>
     const currentBroadcast = channel.currentStep.broadcast
     const nextBroadcast = channel.nextStep.broadcast
     const nextStepStart = new Date(channel.nextStep.start * 1000)
-    return <div className="channel-player-container">
+    return <div className="wrapper channel-player-container">
         <Link to="/">
             <h2 className="button button--text">
                 <button className="go-back">{backButton}</button>
@@ -43,7 +43,7 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
             <div className="current-broadcast-thumbnail-container">
                 <img className="current-broadcast-thumbnail" src={currentBroadcast.thumbnail_src} alt={`${currentBroadcast.title} thumbnail`}/>
                 <div className={"play-channel-button-container " + (isPlaying ? "" : "force-visible")}>
-                    <button onClick={togglePlayStation} className="play-channel-button">
+                    <button onClick={() => togglePlayStation(isPlaying)} className="play-channel-button">
                         {
                             isPlaying ?
                             <>{stopButton} Arrêter</> :
@@ -56,11 +56,31 @@ export default function OnAir({channels, playingChannelName, setOnAirChannel, se
                 </div>
             </div>
             <div className="main-info">
+                {/* <CSSDelayedTransition
+                    timeout={500}
+                    transitionType="fadeup"
+                    delay={0}
+                    component={}
+                /> */}
                 <LinkableText target="_blank" isBlock={true} href={currentBroadcast.show_link} className="current-broadcast-show">{currentBroadcast.show_title}</LinkableText>
+                {/* <CSSDelayedTransition
+                    timeout={500}
+                    transitionType="fadeup"
+                    delay={100}
+                    component={
+                    
+                    }
+                /> */}
                 <div className="current-broadcast-station">
                     {currentBroadcast.parent_show_title ? <>dans <LinkableText target="_blank" href={currentBroadcast.parent_show_link}>{currentBroadcast.parent_show_title}</LinkableText> </> : ""}
                     {currentBroadcast.show_title ? "sur " : "Vous écoutez " }<LinkableText target="_blank" href={currentBroadcast.station.website}>{currentBroadcast.station.name}</LinkableText>
                 </div>
+                {/* <CSSDelayedTransition
+                    timeout={500}
+                    transitionType="fadeup"
+                    delay={200}
+                    component={}
+                /> */}
                 <LinkableText target="_blank" isBlock={true} href={currentBroadcast.link} className="current-broadcast-title">{currentBroadcast.title}</LinkableText>
                 <p className="current-broadcast-summary">{currentBroadcast.summary}</p>
             </div>

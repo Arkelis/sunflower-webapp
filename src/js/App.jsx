@@ -8,6 +8,7 @@ import OnAir from "./pages/OnAir";
 import Schedule from "./pages/Schedule";
 import Player from "./components/Player"
 import PycolorePlaylist from "./pages/PycolorePlaylist";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 
 export default function App() {
@@ -76,38 +77,45 @@ export default function App() {
         return { endpoint: endpoint, name: json.name, schedule: json.schedule, audio_stream: json.audio_stream }
     }
     console.log("Render App")
+    console.log(onAirChannel)
 
-    if (loading) return "Chargement"
+    if (loading) return <div style={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "grid", "place-items": "center"}}>
+        <h1>Radio Pycolore</h1>
+    </div>
     return <>
-        <Switch>
-            <Route exact path="/">
-                <ChannelsList channels={channelData} setPlayerMode={setPlayerMode} />
-            </Route>
-            <Route 
-                exact path="/:name"
-                render={({ match }) => {
-                    if (channelEndpoints.includes(match.params.name))
-                        return <OnAir channels={channelData} playingChannelName={onAirChannel.endpoint} setOnAirChannel={setOnAirChannel} setPlayerMode={setPlayerMode} />
-                    else
-                        return <Redirect to="/"/>
-                }}
-            />
-            <Route 
-                exact path="/:name/schedule"
-                render={({ match }) => {
-                    if (channelEndpoints.includes(match.params.name))
-                        return <Schedule setPlayerMode={setPlayerMode}/>
-                    else
-                        return <Redirect to="/"/>
-                }}
-            />
-            <Route exact path="/pages/playlist-pycolore">
-                <PycolorePlaylist apiHost={apiHost}/>
-            </Route>
-            <Route>
-                <Redirect to="/"/>
-            </Route>
-        </Switch>
-        {onAirChannel === "" ? "" : <Player mode={playerMode} channel={onAirChannel} />}
+        <TransitionGroup>
+            <CSSTransition key={currentLoc.key} timeout={600} classNames="pagetransi">
+                <Switch location={currentLoc}>
+                    <Route exact path="/">
+                        <ChannelsList channels={channelData} setPlayerMode={setPlayerMode} />
+                    </Route>
+                    <Route 
+                        exact path="/:name"
+                        render={({ match }) => {
+                            if (channelEndpoints.includes(match.params.name)) {
+                                return <OnAir channels={channelData} playingChannelName={onAirChannel.endpoint} setOnAirChannel={setOnAirChannel} setPlayerMode={setPlayerMode} />
+                            } else
+                                return <Redirect to="/"/>
+                        }}
+                    />
+                    <Route 
+                        exact path="/:name/schedule"
+                        render={({ match }) => {
+                            if (channelEndpoints.includes(match.params.name))
+                                return <Schedule setPlayerMode={setPlayerMode}/>
+                            else
+                                return <Redirect to="/"/>
+                        }}
+                    />
+                    <Route exact path="/pages/playlist-pycolore">
+                        <PycolorePlaylist apiHost={apiHost}/>
+                    </Route>
+                    <Route>
+                        <Redirect to="/"/>
+                    </Route>
+                </Switch>
+            </CSSTransition>
+        </TransitionGroup>
+        {onAirChannel === "" ? "" : <Player channel={onAirChannel} />}
     </>
 }

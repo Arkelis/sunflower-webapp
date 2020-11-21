@@ -116,7 +116,7 @@
     @media only screen and (min-width: $player_medium_breakpoint) {
         --thumbnail-size: #{$big_thumbnail_width};
 
-        margin: 32px;
+        padding: 32px;
 
         .go-back svg {
             height: 32px;
@@ -154,6 +154,8 @@
         --titles-font-size: 24px;
         --text-font-size: 16px;
         --schedule-button-font-size: 14px;
+
+        padding: 48px;
 
         @media only screen and (min-width: $player_large_breakpoint) {
             --thumbnail-width: #{$large_thumbnail_width};

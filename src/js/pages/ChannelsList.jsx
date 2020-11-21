@@ -9,7 +9,7 @@ export default function ChannelsList({channels, setPlayerMode}) {
         cards.push(<li key={channel}><Card channel={channels[channel]}/></li>)
     }
 
-    return <>
+    return <div className="wrapper">
         <div className="radio-title">
             <div className="ellipse"></div>
             <h1 className="radio-name"><img className="radio-logo" src="https://www.pycolore.fr/assets/img/sunflower-dark-min.jpg" alt="Sunflower logo"/>Radio Pycolore</h1>
@@ -20,5 +20,5 @@ export default function ChannelsList({channels, setPlayerMode}) {
                 {cards}
             </ul>
         </div>
-    </>
+    </div>
 }
