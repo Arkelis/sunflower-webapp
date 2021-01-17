@@ -116,8 +116,6 @@
     @media only screen and (min-width: $player_medium_breakpoint) {
         --thumbnail-size: #{$big_thumbnail_width};
 
-        padding: 32px 0;
-
         .go-back svg {
             height: 32px;
             margin-right: 16px;
