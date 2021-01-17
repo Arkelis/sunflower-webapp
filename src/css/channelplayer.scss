@@ -1,6 +1,6 @@
 .channel-player-container {
     --thumbnail-width: #{$big_thumbnail_width};
-    margin: auto;
+    margin: 32px auto;
 
     .go-back {
         vertical-align: -20%;
@@ -110,13 +110,13 @@
     }
     
     .go-to-schedule {
-        font-size: 12px;
+        font-size: 15px;
     }
 
     @media only screen and (min-width: $player_medium_breakpoint) {
         --thumbnail-size: #{$big_thumbnail_width};
 
-        padding: 32px;
+        padding: 32px 0;
 
         .go-back svg {
             height: 32px;
@@ -154,14 +154,12 @@
         --titles-font-size: 24px;
         --text-font-size: 16px;
         --schedule-button-font-size: 14px;
-
-        padding: 48px;
-
+        
         @media only screen and (min-width: $player_large_breakpoint) {
             --thumbnail-width: #{$large_thumbnail_width};
             --titles-font-size: 32px;
             --text-font-size: 20px;
-            --schedule-button-font-size: 16px;
+            --schedule-button-font-size: 18px;
         }
 
         .current-broadcast-info-container {

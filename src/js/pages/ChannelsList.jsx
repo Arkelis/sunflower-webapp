@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback, useContext } from "react"
-import Card from "../components/Card";
+import ChannelCard from "../components/ChannelCard";
 import { ChannelContext } from "../App";
 
-export default function ChannelsList({channels, setPlayerMode}) {
-    useEffect(() => setPlayerMode("normal"), [])
+export default function ChannelsList({channels}) {
     const cards = []
     for(let channel in channels) {
-        cards.push(<li key={channel}><Card channel={channels[channel]}/></li>)
+        cards.push(<li key={channel}><ChannelCard channel={channels[channel]}/></li>)
     }
 
     return <div className="wrapper">

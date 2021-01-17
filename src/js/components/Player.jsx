@@ -1,5 +1,6 @@
 import React, { useRef, useState, useCallback, useEffect, useMemo } from "react"
 import { stopButton, playButton, volumeButton } from "../svg"
+import { formatTime } from "../utils"
 
 export default function Player({channel}) {
     const audioElement = useRef(null)
@@ -7,8 +8,6 @@ export default function Player({channel}) {
     const [volume, setVolume] = useState(parseFloat(localStorage.getItem("radiopycolore__volume")) || 1)
     const currentBroadcast = channel.currentStep.broadcast
     const displayProgressBar = channel.currentStep.end !== 0
-    const startDate = new Date(channel.currentStep.start * 1000)
-    const endDate = new Date(channel.currentStep.end * 1000)
     const audioStreamUrl = useMemo(
         () => play ? channel.audio_stream + `?t=${Date.now()}`: "",
         [play, channel.endpoint]
@@ -51,9 +50,9 @@ export default function Player({channel}) {
             {
                 displayProgressBar ?
                 <div className="player-info__progress-bar">
-                    <div className="start">{new Intl.NumberFormat('fr-FR', {minimumIntegerDigits: 2}).format(startDate.getHours())}&nbsp;h&nbsp;{new Intl.NumberFormat('fr-FR', {minimumIntegerDigits: 2}).format(startDate.getMinutes())}</div>
+                    <div className="start">{formatTime(channel.currentStep.start)}</div>
                     <div className="progress"></div>
-                    <div className="end">{new Intl.NumberFormat('fr-FR', {minimumIntegerDigits: 2}).format(endDate.getHours())}&nbsp;h&nbsp;{new Intl.NumberFormat('fr-FR', {minimumIntegerDigits: 2}).format(endDate.getMinutes())}</div>
+                    <div className="end">{formatTime(channel.currentStep.end)}</div>
                 </div> :
                 ""
 

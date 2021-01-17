@@ -17,7 +17,7 @@
 
     .ellipse {
         position: absolute;
-        top: -35px;
+        top: -40px;
         left: -25%;
         background-color: #333;
         width: 150%;
@@ -30,6 +30,8 @@
 @media only screen and (min-width: $list_medium_breakpoint) {
     .radio-title {
         
+        margin: -32px;
+
         .radio-name {
             margin-top: 48px;
             font-size: 32px;
@@ -41,11 +43,17 @@
         }
 
         .ellipse {
-            top: -266px;
+            top: -280px;
             left: -70%;
             width: 200%;
             height: 400px;
         }
+    }
+}
+
+@media only screen and (min-width: $player_big_breakpoint) {
+    .radio-title {
+        margin: -48px;
     }
 }
 

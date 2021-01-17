@@ -2,8 +2,8 @@ import { useCallback } from "react"
 
 export const useRipple = (element) => useCallback(event => {
     const domElement = element.current
-    const x = event.pageX - domElement.offsetLeft
-    const y = event.pageY - domElement.offsetTop
+    const x = event.pageX - event.currentTarget.offsetLeft
+    const y = event.pageY - event.currentTarget.offsetTop
     const circle = `circle at ${x}px ${y}px`
     
     const duration = 700

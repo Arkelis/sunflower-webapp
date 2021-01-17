@@ -4,11 +4,11 @@
     border-radius: 4px;
     line-height: 0;
     margin-bottom: 16px;
-
+    
     &:hover {
         background-color: var(--grey);
     }
-
+    
     .thumbnail {
         line-height: 0;
     
@@ -25,14 +25,8 @@
         margin: 0 16px;
         font-size: 14px;
 
-        .channel-name {
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size: 18px;
-            margin-bottom: 9px;
-        }
 
-        .show-title, .next-title {
+        .show-title {
             font-weight: 300;
             margin-bottom: 4px;
             font-family: $sans_serif_condensed;
@@ -41,11 +35,47 @@
         .show-title, .title {
             @include truncate-lines(2)
         }
+    }
+}
+
+
+.card--channel {
+    .info {
+        .channel-name {
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 9px;
+        }
+
+        .next-title {
+            font-weight: 300;
+            margin-bottom: 4px;
+            font-family: $sans_serif_condensed;
+        }        
 
         .next-title {
             @include truncate-lines(1);
             @include on-large-screen-only(-webkit-box);
         }
+    }
+}
+
+
+.card--schedule {
+    position: relative;
+        
+    .schedule {
+        position: absolute;
+        top: 8px;
+        //font-weight: bold;
+        font-family: $sans_serif_condensed;
+        font-size: 14px;
+    }
+
+    .info {
+        margin-top: calc(1em + 12px);
+        flex-grow: 1;
     }
 }
 
@@ -61,7 +91,7 @@
         margin: auto;
     }
     
-    .card {
+    .card--channel {
         width: $vertical_card_width;
         height: 480px;
         flex-direction: column;
@@ -87,11 +117,32 @@
             }
         }
     }
+
+    .card--schedule { 
+        .schedule,
+        .info {
+            font-size: 16px;
+        }
+
+        // .info-wrapper .schedule {
+        //     position: absolute;
+        //     padding: 6px;
+        //     margin-top: 0;
+        //     left: 0;
+        //     line-height: 1;
+        // }
+    }
 }
 
 @media only screen and (min-width: $list_big_breakpoint) {
     .channel-cards {
         grid-template-columns: repeat(3, $vertical_card_width);
+    }
+    
+    .card--schedule {
+        max-width: $list_big_breakpoint;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
@@ -104,7 +155,7 @@
         grid-template-columns: repeat(2, $horizontal_card_width);
     }
     
-    .card {
+    .card--channel {
         width: $horizontal_card_width;
         height: 240px;
         flex-direction: row;

@@ -4,10 +4,21 @@
     margin-right: .35em;
 }
 
+
 @media only screen and (min-width: $list_medium_breakpoint) {
     .channels-list-container {
         width: calc(2 * #{$vertical_card_width} + 32px);
         margin: auto;
+    }
+
+    .channels-list-container {
+        margin-top: 32px;
+    }
+}
+
+@media only screen and (min-width: $player_big_breakpoint) {
+    .channels-list-container {
+        margin-top: 48px;
     }
 }
 
@@ -20,6 +31,5 @@
 @media only screen and (min-width: $list_large_breakpoint) {
     .channels-list-container {
         width: 1472px;
-        margin: auto;
     }
 }

@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
 import 'regenerator-runtime/runtime'
+import BreadCrumb from "../components/BreadCrumb"
 
 export default function PycolorePlaylist({apiHost}) {
 
@@ -71,11 +72,14 @@ export default function PycolorePlaylist({apiHost}) {
         return groups
     }
 
-    return <>
-        <h2>Playlist Pycolore</h2>
-        <Link className="link" to="/">Retourner sur Radio Pycolore</Link>
+    return <div className="wrapper">
+        <BreadCrumb>
+            <li><Link className="link" to="/">Radio Pycolore</Link></li>
+            <li>La Playlist Pycolore</li>
+        </BreadCrumb>
 
         <div id="playlist-wrapper">
+            <h2>La Playlist Pycolore</h2>
             <input type="text" placeholder="Rechercher un artiste, un titre ou un album..." onChange={filterPlaylist}/>
             <table>
                 <colgroup>
@@ -95,5 +99,5 @@ export default function PycolorePlaylist({apiHost}) {
                 </tbody>
             </table>
         </div>
-    </>
+    </div>
 }

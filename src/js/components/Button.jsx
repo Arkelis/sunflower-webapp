@@ -2,11 +2,15 @@ import React, { useRef } from "react";
 import { useRipple } from "../hooks";
 import { Link } from "react-router-dom";
 
-export default function LinkButton({to, className, children}) {
+export default function Button({className, onClick, children}) {
     const element = useRef(null)
     const ripple = useRipple(element)
+    const handleClick = (event) => {
+        ripple(event)
+        onClick(event)
+    }
 
-    return <Link to={to} className={className} ref={element} onClick={ripple}>
-        <span className="badge button">{children}</span>
-    </Link>
+    return <button ref={element} onClick={handleClick} className={className + " button"}>
+        {children}
+    </button>
 }
