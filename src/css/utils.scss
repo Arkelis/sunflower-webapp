@@ -1,7 +1,7 @@
-@mixin on-large-screen-only($display_mode: block) {
+@mixin on-large-screen-only($breakpoint: $list_large_breakpoint, $display_mode: block) {
     display: none;
 
-    @media only screen and (min-width: $list_large_breakpoint) {
+    @media only screen and (min-width: $breakpoint) {
         display: $display_mode;
     }
 }

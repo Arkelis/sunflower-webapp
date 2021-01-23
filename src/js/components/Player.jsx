@@ -15,9 +15,10 @@ export default function Player({channel}) {
     useEffect(() => {
         if (play) {
             audioElement.current.play()
+            document.querySelector("#app").classList.add("app--player-visible")
         } else {
             audioElement.current.load()
-            //setTimestamp(Date.now())
+            document.querySelector("#app").classList.remove("app--player-visible")
         }
     }, [play])
 

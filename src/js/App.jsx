@@ -17,34 +17,22 @@ export default function App() {
     const [channelEndpoints, setChannelEndpoints] = useState([])
     const currentLoc = useLocation()
     const isPage = currentLoc.pathname.startsWith("/pages") || currentLoc.pathname.endsWith("schedule")
-    const [subscribeEvents, setSusbscribeEvents] = useState(true)
     const [loading, setLoading] = useState(true)
     const apiHost = "https://api.radio.pycolore.fr"
     // const apiHost = "http://192.168.1.52:8000"
 
     useEffect(() => {
-        fetchChannelEndpoints()
+        fetchChannelData()
     }, [])
 
-    // useEffect(() => {
-    //     if (subscribeEvents) return
-    //     if (!isPage) setSusbscribeEvents(true)
-    // }, [isPage])
-    
     useEffect(() => {
-        if (channelEndpoints.length == 0) return
-        //if (!isPage) fetchChannelData()
-        fetchChannelData()
-    }, [subscribeEvents, channelEndpoints])
-
-    useEffect(() => {
-        // if (isPage) return
         if (channelEndpoints.length == 0) return
         const es = new EventSource(`${apiHost}/events`)
         es.onmessage = async (message) => {
             const data = JSON.parse(message.data)
             const endpoint = data.channel
             const newChannelData = { ...channelData }
+            console.log(channelData)
             const currentStep = await getChannelStep(endpoint, "current")
             const nextStep = await getChannelStep(endpoint, "next")
             newChannelData[endpoint].currentStep = currentStep
@@ -55,17 +43,13 @@ export default function App() {
     }, [channelEndpoints])
 
 
-    const fetchChannelEndpoints = async () => {
+    const fetchChannelData = async () => {
         const resp = await fetch(`${apiHost}/channels/`)
         const json = await resp.json()
         const endpoints = []
         for (let endpoint in json) endpoints.push(endpoint)
-        setChannelEndpoints(endpoints)
-    }
-
-    const fetchChannelData = async () => {
         let newChannelData = {}
-        for (let endpoint of channelEndpoints) {
+        for (let endpoint of endpoints) {
             const channelInfo = await getChannelInfo(endpoint)
             const currentStep = await getChannelStep(endpoint, "current")
             const nextStep = await getChannelStep(endpoint, "next")
@@ -76,8 +60,10 @@ export default function App() {
             }
         }
         setChannelData(newChannelData)
+        setChannelEndpoints(endpoints)
         setLoading(false)
     }
+
 
     const getChannelStep = async (endpoint, stepType) => {
         const resp = await fetch(`${apiHost}/channels/${endpoint}/${stepType}/`)
@@ -90,45 +76,40 @@ export default function App() {
         const json = await resp.json()
         return { endpoint: endpoint, name: json.name, schedule: json.schedule, audio_stream: json.audio_stream }
     }
-    // console.log("Render App")
 
     if (loading) return <div style={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "grid", placeItems: "center"}}>
         <h1>Radio Pycolore</h1>
     </div>
     return <>
-        <TransitionGroup>
-            <CSSTransition key={currentLoc.key} timeout={600} classNames="pagetransi">
-                <Switch location={currentLoc}>
-                    <Route exact path="/">
-                        <ChannelsList channels={channelData}/>
-                    </Route>
-                    <Route 
-                        exact path="/:name"
-                        render={({ match }) => {
-                            if (channelEndpoints.includes(match.params.name)) {
-                                return <OnAir channels={channelData} playingChannelName={onAirChannel.endpoint} setOnAirChannel={setOnAirChannel}/>
-                            } else
-                                return <Redirect to="/"/>
-                        }}
-                    />
-                    <Route 
-                        exact path="/:name/schedule"
-                        render={({ match }) => {
-                            if (channelEndpoints.includes(match.params.name))
-                                return <Schedule/>
-                            else
-                                return <Redirect to="/"/>
-                        }}
-                    />
-                    <Route exact path="/pages/playlist-pycolore">
-                        <PycolorePlaylist apiHost={apiHost}/>
-                    </Route>
-                    <Route>
-                        <Redirect to="/"/>
-                    </Route>
-                </Switch>
-            </CSSTransition>
-        </TransitionGroup>
+        <Switch location={currentLoc}>
+            <Route exact path="/">
+                <ChannelsList channels={channelData}/>
+            </Route>
+            <Route 
+                exact path="/:name"
+                render={({ match }) => {
+                    if (channelEndpoints.includes(match.params.name)) {
+                        return <OnAir channels={channelData} playingChannelName={onAirChannel.endpoint} setOnAirChannel={setOnAirChannel}/>
+                    } else
+                        return <Redirect to="/"/>
+                }}
+            />
+            <Route 
+                exact path="/:name/schedule"
+                render={({ match }) => {
+                    if (channelEndpoints.includes(match.params.name))
+                        return <Schedule/>
+                    else
+                        return <Redirect to="/"/>
+                }}
+            />
+            <Route exact path="/pages/playlist-pycolore">
+                <PycolorePlaylist apiHost={apiHost}/>
+            </Route>
+            <Route>
+                <Redirect to="/"/>
+            </Route>
+        </Switch>
         {onAirChannel === "" ? "" : <Player channel={onAirChannel} />}
     </>
 }

@@ -2,7 +2,7 @@
     background-color: var(--background-color);
     border-top: solid var(--grey) 1px;
     position: fixed;
-    padding: 8px 16px;
+    padding: 16px 24px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -43,8 +43,8 @@
         }
 
         .player-info__progress-bar {
+            @include on-large-screen-only($list_medium_breakpoint, flex);
             margin: 4px 0;
-            display: flex;
 
             .start,
             .end {

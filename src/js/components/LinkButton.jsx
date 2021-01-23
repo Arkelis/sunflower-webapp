@@ -6,7 +6,7 @@ export default function LinkButton({to, className, children}) {
     const element = useRef(null)
     const ripple = useRipple(element)
 
-    return <Link to={to} className={className} onClick={ripple}>
+    return <Link to={to} className={className} onMouseDown={ripple}>
         <div ref={element} className="badge button">{children}</div>
     </Link>
 }

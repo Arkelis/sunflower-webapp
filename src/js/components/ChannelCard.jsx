@@ -16,7 +16,7 @@ export default function ChannelCard({channel}) {
     const ripple = useRipple(element)
 
     return <Link to={channel.endpoint}>
-        <div ref={element} href="#" className="button card card--channel" onClick={ripple}>
+        <div ref={element} href="#" className="button card card--channel" onMouseDown={ripple}>
             <div className="thumbnail"><img src={channel.currentStep.broadcast.thumbnail_src}/></div>
             <div className="info">
                 <div className="channel-name">{channel.name}</div>

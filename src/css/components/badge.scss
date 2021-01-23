@@ -14,7 +14,7 @@
 }
 
 .badge--large-only {
-    @include on-large-screen-only(inline-block)
+    @include on-large-screen-only($display_mode: inline-block)
 }
 
 .button {

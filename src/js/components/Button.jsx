@@ -5,12 +5,8 @@ import { Link } from "react-router-dom";
 export default function Button({className, onClick, children}) {
     const element = useRef(null)
     const ripple = useRipple(element)
-    const handleClick = (event) => {
-        ripple(event)
-        onClick(event)
-    }
 
-    return <button ref={element} onClick={handleClick} className={className + " button"}>
+    return <button ref={element} onClick={onClick} onMouseDown={ripple} className={className + " button"}>
         {children}
     </button>
 }
