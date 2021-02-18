@@ -1,17 +1,16 @@
 import React, { Fragment, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
-import 'regenerator-runtime/runtime'
 import BreadCrumb from "../components/BreadCrumb"
 
-export default function PycolorePlaylist({apiHost}) {
+export default function PycolorePlaylist() {
 
     const [playlist, setPlaylist] = useState({})
     const [filteredPlaylist, setFilteredPlaylist] = useState([])
 
     useEffect(() => {
         async function fetchPlaylist() {
-            const resp = await fetch(`${apiHost}/stations/pycolore/playlist/?shape=groupartist`)
+            const resp = await fetch(`${process.env.REACT_APP_API_ENTRYPOINT}/stations/pycolore/playlist/?shape=groupartist`)
             const json = await resp.json()
             setPlaylist(json)
             setFilteredPlaylist(json)

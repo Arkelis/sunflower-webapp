@@ -11,8 +11,8 @@ export default function OnAir({ channels, playingChannelName, setOnAirChannel })
     const { name } = useParams()
     const channel = channels[name]
     const [isPlaying, setIsPlaying] = useState(playingChannelName === name)
-    
-    
+
+
     useEffect(function () {
         document.title = `Chaîne ${channel.name} | Radio Pycolore`
     })
@@ -27,6 +27,9 @@ export default function OnAir({ channels, playingChannelName, setOnAirChannel })
         const channelToSet = isPlaying ? "" : channel
         setOnAirChannel(channelToSet)
         setIsPlaying(!isPlaying)
+        if (isPlaying)  {
+            document.querySelector("#app").classList.remove("app--player-visible")
+        }
     }, [])
 
     const currentBroadcast = channel.currentStep.broadcast
