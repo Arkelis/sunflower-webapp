@@ -1,16 +1,17 @@
-import React, { useRef } from "react"
-import { useRipple } from "../hooks";
+import React from "react"
 import { Link } from "react-router-dom";
 import { formatTime } from "../utils";
 
 export default function ScheduleCard({step}) {
 
     const broadcast = step.broadcast
-    //const element = useRef(null)
-    //const ripple = useRipple(element)
-
-    return (//<Link to={broadcast.link}>
-        <div href="#" className="card card--schedule">
+    let link = "#"
+    if (broadcast.title.includes("Pycolore")) {
+        link = "/pages/playlist-pycolore"
+    }
+    
+    return <Link to={link}>
+        <div href={link} className="card card--schedule">
             <div className="thumbnail"><img src={broadcast.thumbnail_src}/></div>
             <div className="info">
                 <span className="badge badge--inverted schedule">{formatTime(step.start)}</span>
@@ -20,5 +21,5 @@ export default function ScheduleCard({step}) {
                 <div className="title"><strong>{broadcast.title}</strong></div>
             </div>
         </div>
-    )//</Link>
+    </Link>
 }

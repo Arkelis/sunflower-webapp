@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Route, Switch, Redirect } from "react-router-dom"
 import 'regenerator-runtime/runtime'
-import { useLocation } from "react-router-dom";
 
 import ChannelsList from "./pages/ChannelsList";
 import OnAir from "./pages/OnAir";
@@ -15,11 +14,8 @@ export default function App() {
     const [onAirChannel, setOnAirChannel] = useState("")
     const [channelData, setChannelData] = useState({})
     const [channelEndpoints, setChannelEndpoints] = useState([])
-    const currentLoc = useLocation()
-    const isPage = currentLoc.pathname.startsWith("/pages") || currentLoc.pathname.endsWith("schedule")
     const [loading, setLoading] = useState(true)
     const apiHost = "https://api.radio.pycolore.fr"
-    // const apiHost = "http://192.168.1.52:8000"
 
     useEffect(() => {
         fetchChannelData()
@@ -79,7 +75,7 @@ export default function App() {
 
     if (loading) return <Loader />
     return <>
-        <Switch location={currentLoc}>
+        <Switch>
             <Route exact path="/">
                 <ChannelsList channels={channelData}/>
             </Route>

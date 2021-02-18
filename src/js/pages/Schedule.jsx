@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import BreadCrumb from "../components/BreadCrumb"
 import ScheduleCard from "../components/ScheduleCard"
-import { backButton } from "../svg"
 import { capitalize } from "../utils"
 
 export default function Schedule() {
@@ -14,8 +13,7 @@ export default function Schedule() {
 
     const apiHost = "https://api.radio.pycolore.fr"
 
-
-    useEffect(() => { 
+    useEffect(() => {
         const fetchSchedule = async () => {
             const resp = await fetch(`${apiHost}/channels/${name}/schedule/`)
             const json = await resp.json()

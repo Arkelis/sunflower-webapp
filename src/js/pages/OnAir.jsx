@@ -1,10 +1,8 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
-import CSSDelayedTransition from "../components/CSSDelayedTransition"
 import LinkButton from "../components/LinkButton";
 import LinkableText from "../components/LinkableText";
-import { backButton, playButton, stopButton } from "../svg";
+import { playButton, stopButton } from "../svg";
 import BreadCrumb from "../components/BreadCrumb";
 import Button from "../components/Button";
 import { formatTime } from "../utils";
