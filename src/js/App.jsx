@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
+import { Route, Switch, Redirect } from "react-router-dom"
 import 'regenerator-runtime/runtime'
 import { useLocation } from "react-router-dom";
 
@@ -8,7 +8,7 @@ import OnAir from "./pages/OnAir";
 import Schedule from "./pages/Schedule";
 import Player from "./components/Player"
 import PycolorePlaylist from "./pages/PycolorePlaylist";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import Loader from "./components/Loader";
 
 
 export default function App() {
@@ -77,9 +77,7 @@ export default function App() {
         return { endpoint: endpoint, name: json.name, schedule: json.schedule, audio_stream: json.audio_stream }
     }
 
-    if (loading) return <div style={{position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "grid", placeItems: "center"}}>
-        <h1>Radio Pycolore</h1>
-    </div>
+    if (loading) return <Loader />
     return <>
         <Switch location={currentLoc}>
             <Route exact path="/">
