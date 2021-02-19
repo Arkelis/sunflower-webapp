@@ -1,19 +1,18 @@
+@mixin dark-theme {
+    --lightgrey: #444;
+    --grey: #555;
+    --font-black: #fff;
+    --font-white: #000;
+    --background-color: #333;
+    --shadow-color: #222;
+  }
+
 @media (prefers-color-scheme: dark) {
     :root {
-        --lightgrey: #444;
-        --grey: #555;
-        --font-black: #fff;
-        --font-white: #000;
-        --background-color: #333;
-        --shadow-color: #222;
+        @include dark-theme
     }
 }
 
 :root.dark {
-        --lightgrey: #444;
-        --grey: #555;
-        --font-black: #fff;
-        --font-white: #000;
-        --background-color: #333;
-        --shadow-color: #222;
+    @include dark-theme
 }

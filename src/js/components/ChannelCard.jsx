@@ -10,8 +10,6 @@ export default function ChannelCard({channel}) {
     const broadcast = channel.currentStep.broadcast
     const nextBroadcast = channel.nextStep.broadcast
 
-    // if (!broadcast) return ""
-
     const element = useRef(null)
     const ripple = useRipple(element)
 

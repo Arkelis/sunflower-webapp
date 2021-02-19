@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useCallback, useContext } from "react"
+import React from "react"
 import ChannelCard from "../components/ChannelCard";
-import { ChannelContext } from "../App";
 
 export default function ChannelsList({channels}) {
     const cards = []
-    for(let channel in channels) {
+    for (let channel in channels) {
         cards.push(<li key={channel}><ChannelCard channel={channels[channel]}/></li>)
     }
 

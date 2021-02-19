@@ -21,7 +21,7 @@
         }
         
         :not(thead) tr:hover:not(.artist-row) :not(th) {
-            background-color: #444;
+            background-color: var(--lightgrey);
             white-space: unset !important;
         }
 
@@ -44,7 +44,7 @@
         background: inherit;
         width: 100%;
         height: 2em;
-        border: 1px solid #666;
+        border: 1px solid var(--grey);
         border-radius: .2em;
         padding: 1em;
         font-family: inherit;
@@ -54,7 +54,7 @@
         transition: border-color .3s ease-in-out;
 
         &:focus {
-            border-color: white;
+            border-color: var(--font-black);
         }
     }
 }

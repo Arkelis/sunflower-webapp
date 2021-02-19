@@ -1,10 +1,8 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
-import CSSDelayedTransition from "../components/CSSDelayedTransition"
 import LinkButton from "../components/LinkButton";
 import LinkableText from "../components/LinkableText";
-import { backButton, playButton, stopButton } from "../svg";
+import { playButton, stopButton } from "../svg";
 import BreadCrumb from "../components/BreadCrumb";
 import Button from "../components/Button";
 import { formatTime } from "../utils";
@@ -13,8 +11,8 @@ export default function OnAir({ channels, playingChannelName, setOnAirChannel })
     const { name } = useParams()
     const channel = channels[name]
     const [isPlaying, setIsPlaying] = useState(playingChannelName === name)
-    
-    
+
+
     useEffect(function () {
         document.title = `Chaîne ${channel.name} | Radio Pycolore`
     })
@@ -29,6 +27,9 @@ export default function OnAir({ channels, playingChannelName, setOnAirChannel })
         const channelToSet = isPlaying ? "" : channel
         setOnAirChannel(channelToSet)
         setIsPlaying(!isPlaying)
+        if (isPlaying)  {
+            document.querySelector("#app").classList.remove("app--player-visible")
+        }
     }, [])
 
     const currentBroadcast = channel.currentStep.broadcast
