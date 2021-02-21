@@ -7,6 +7,7 @@ export default function ChannelsList({channels}) {
         cards.push(<li key={channel}><ChannelCard channel={channels[channel]}/></li>)
     }
 
+    
     return <div className="wrapper">
         <div className="radio-title">
             <div className="ellipse"></div>
