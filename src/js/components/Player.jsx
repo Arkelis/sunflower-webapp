@@ -1,11 +1,12 @@
-import React, { useRef, useState, useCallback, useEffect, useMemo } from "react"
+import React, { useContext, useRef, useState, useEffect, useMemo } from "react"
 import { stopButton, playButton, volumeButton, muteButton } from "../svg"
 import { formatTime } from "../utils"
 import { useToggle } from "../hooks"
+import PlayerContext from "../PlayerContext";
 
-export default function Player({channel}) {
+export default function Player() {
     const audioElement = useRef(null)
-    const [play, togglePlay] = useToggle(true)
+    const { isPlaying: play, togglePlay, onAirChannel: channel} = useContext(PlayerContext);
     const [isMuted, toggleMuted] = useToggle(false)
     const [volume, setVolume] = useState(parseFloat(localStorage.getItem("radiopycolore__volume")) || 1)
     const currentBroadcast = channel.currentStep.broadcast

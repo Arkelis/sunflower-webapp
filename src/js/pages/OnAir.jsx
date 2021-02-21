@@ -1,32 +1,51 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from "react";
+import React, { useContext, useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import LinkButton from "../components/LinkButton";
 import LinkableText from "../components/LinkableText";
 import { playButton, stopButton } from "../svg";
 import BreadCrumb from "../components/BreadCrumb";
 import Button from "../components/Button";
+import PlayerContext from "../PlayerContext";
 import { formatTime } from "../utils";
 
-export default function OnAir({ channels, playingChannelName, setOnAirChannel }) {
+export default function OnAir({ channels }) {
     const { name } = useParams()
     const channel = channels[name]
-    const [isPlaying, setIsPlaying] = useState(playingChannelName === name)
+    const { isPlaying: isPlayingGlobally, togglePlay, onAirChannel, setOnAirChannel } = useContext(PlayerContext);
+    const playingChannelName = onAirChannel.endpoint
 
+    // use the global context to check if we are playing this channel
+    const [isPlaying, setIsPlaying] = useState(onAirChannel.endpoint === name)
 
-    useEffect(function () {
+    useEffect(() => {
         document.title = `Chaîne ${channel.name} | Radio Pycolore`
     })
 
+    // update local state 'isPlaying' if music is stopped with the player
+    useEffect(() => {
+        if (!isPlayingGlobally) {
+            setIsPlaying(false)
+        }
+        if (isPlayingGlobally && (onAirChannel.endpoint === name)) {
+            setIsPlaying(true)
+        }
+    },  [isPlayingGlobally])
 
-    useEffect(function () {
+    useEffect(() => {
         if (isPlaying === (playingChannelName === name)) return
         setIsPlaying(playingChannelName === name)
     }, [playingChannelName])
 
     const togglePlayStation = useCallback((isPlaying) => {
+        // if we stop the radio => onAirChannel = "" and  the player is removed
         const channelToSet = isPlaying ? "" : channel
         setOnAirChannel(channelToSet)
         setIsPlaying(!isPlaying)
+        // if player on pause force playing
+        if (!isPlayingGlobally) {
+            togglePlay()
+        }
+        // we remove the padding if playing is stopped
         if (isPlaying)  {
             document.querySelector("#app").classList.remove("app--player-visible")
         }
@@ -45,7 +64,7 @@ export default function OnAir({ channels, playingChannelName, setOnAirChannel })
                 <div className="current-broadcast-thumbnail-container">
                     <img className="current-broadcast-thumbnail" src={currentBroadcast.thumbnail_src} alt={`${currentBroadcast.title} thumbnail`} />
                     <div className={"play-channel-button-container " + (isPlaying ? "" : "force-visible")}>
-                        <Button onClick={(event) => togglePlayStation(isPlaying)} className="play-channel-button">
+                        <Button onClick={() => togglePlayStation(isPlaying)} className="play-channel-button">
                             {
                                 isPlaying ?
                                     <>{stopButton} Arrêter</> :

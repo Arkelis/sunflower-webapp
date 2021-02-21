@@ -9,6 +9,8 @@ import Player from "./components/Player"
 import PycolorePlaylist from "./pages/PycolorePlaylist";
 import Loader from "./components/Loader";
 import API from "./api.js";
+import PlayerContext from "./PlayerContext.js";
+import { useToggle } from "./hooks";
 
 
 export default function App() {
@@ -16,6 +18,7 @@ export default function App() {
     const [channelData, setChannelData] = useState({})
     const [channelEndpoints, setChannelEndpoints] = useState([])
     const [loading, setLoading] = useState(true)
+    const [isPlaying, togglePlay] = useToggle(false)
 
     useEffect(() => {
         fetchChannelData()
@@ -61,39 +64,40 @@ export default function App() {
     }
 
     if (loading) return <Loader/>
-    return <>
-        <Switch>
-            <Route exact path="/">
-                <ChannelsList channels={channelData}/>
-            </Route>
-            <Route
-                exact path="/:name"
-                render={({match}) => {
-                    if (channelEndpoints.includes(match.params.name)) {
-                        return <OnAir channels={channelData} playingChannelName={onAirChannel.endpoint}
-                                      setOnAirChannel={setOnAirChannel}/>
-                    } else
-                        return <Redirect to="/"/>
-                }}
-            />
-            <Route
-                exact path="/:name/schedule"
-                render={({match}) => {
-                    console.log(channelEndpoints)
-                    if (channelEndpoints.includes(match.params.name))
-                        return <Schedule/>
-                    else
-                        return <Redirect to="/"/>
-                }}
-            />
-            <Route exact path="/pages/playlist-pycolore">
-                <PycolorePlaylist/>
-            </Route>
-            <Route>
-                <Redirect to="/"/>
-            </Route>
-        </Switch>
-        {/* render the player if radio is on */}
-        {onAirChannel === "" ? "" : <Player channel={onAirChannel}/>}
-    </>
+    return (
+        <PlayerContext.Provider value={{isPlaying, togglePlay, onAirChannel, setOnAirChannel}}>
+            <Switch>
+                <Route exact path="/">
+                    <ChannelsList channels={channelData}/>
+                </Route>
+                <Route
+                    exact path="/:name"
+                    render={({match}) => {
+                        if (channelEndpoints.includes(match.params.name)) {
+                            return <OnAir channels={channelData} playingChannelName={onAirChannel.endpoint}/>
+                        } else
+                            return <Redirect to="/"/>
+                    }}
+                />
+                <Route
+                    exact path="/:name/schedule"
+                    render={({match}) => {
+                        console.log(channelEndpoints)
+                        if (channelEndpoints.includes(match.params.name))
+                            return <Schedule/>
+                        else
+                            return <Redirect to="/"/>
+                    }}
+                />
+                <Route exact path="/pages/playlist-pycolore">
+                    <PycolorePlaylist/>
+                </Route>
+                <Route>
+                    <Redirect to="/"/>
+                </Route>
+            </Switch>
+            {/* render the player if radio is on */}
+            {onAirChannel === "" ? "" : <Player />}
+        </PlayerContext.Provider>
+    )
 }
