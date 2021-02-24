@@ -75,10 +75,16 @@
 
         .volume-controls {
             display: none;
-            
-            .icon-volume {
+
+            .icon-volume  svg {
                 width: 24px;
                 line-height: 0;
+            }
+
+            .icon-mute svg {
+                width: 22px;
+                line-height: 0;
+                margin-right: 2px;
             }
             
             input[type="range"].volume-slider {
