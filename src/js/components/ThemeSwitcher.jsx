@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import moon from "../../css/svg/moon.svg";
 import sun from "../../css/svg/sun.svg";
-import Theme from "../theme.js";
 import ThemeContext from "../context/ThemeContext";
 
 export default function ThemeSwitcher() {
@@ -9,19 +8,15 @@ export default function ThemeSwitcher() {
 
     const switchTheme = () => {
         let root = document.getElementsByTagName("html")[0];
-        if (Theme.getLocalTheme() == "dark") {
+        if (theme== "dark") {
             root.classList.remove("dark");
             root.classList.add("light");
         } else {
             root.classList.remove("light");
             root.classList.add("dark");
         }
-        setTheme(Theme.getLocalTheme() == "dark" ? "light" : "dark");
+        setTheme(theme == "dark" ? "light" : "dark");
     };
-
-    useEffect(() => {
-        localStorage.theme = theme;
-    });
 
     const getImageSwitcher = () => {
         return theme == "dark" ? moon : sun;
