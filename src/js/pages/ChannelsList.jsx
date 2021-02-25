@@ -1,5 +1,6 @@
 import React from "react"
 import ChannelCard from "../components/ChannelCard"
+import Settings from "../components/Settings"
 import ThemeSwitcher from "../components/ThemeSwitcher"
 
 export default function ChannelsList({ channels }) {
@@ -15,6 +16,7 @@ export default function ChannelsList({ channels }) {
     return (
         <>
             <ThemeSwitcher />
+            <Settings />
             <div className="wrapper">
                 <div className="radio-title">
                     <div className="ellipse"></div>

@@ -72,7 +72,99 @@ h3 {
     &:hover {
         cursor: pointer;
     }
-  }
+}
+
+.settings-icon {
+    background-color:  "#979ba0";
+    height: 22px;
+    width: 22px;
+    min-width: 22px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 3;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+#settings-box {    
+    position: absolute;
+    top: 45px;
+    left: 10px;
+    z-index: 2;
+    height: 112px;
+    width: 150px;
+    background-color: var(--lightgrey);
+    border-radius: 6px;
+    padding: 6px;
+
+    h4 {
+        text-align: center;
+    }
+
+    p {
+        font-size: 11px;
+    }
+
+    .delete-block {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+    }
+
+    button {
+        color:#fff;
+        display: flex;
+        align-items: center;
+        background-color: grey;
+        padding: 2px 4px;
+        border-radius: 2px;
+        margin-right: 5px;
+    }
+
+    #check-icon {
+        margin-top: 3px;
+    }
+
+    .popupCloseButton {
+        color: #282828;
+        background-color: #fff;
+        border-radius: 50px;
+        cursor: pointer;
+        font-family: arial;
+        font-weight: bold;
+        position: absolute;
+        top: -7px;
+        right: -10px;
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    svg {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+.m-fadeOut {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 500ms, opacity 500ms;
+}
+
+.m-fadeIn {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 0s, opacity 300ms;
+}
+
+
 
 /* --------------------------------------------------------------------------------------------- */
 /*                                         T A B L E T T E                                       */

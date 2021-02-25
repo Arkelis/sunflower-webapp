@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import moon from "../../css/svg/moon.svg";
 import sun from "../../css/svg/sun.svg";
 import ThemeContext from "../context/ThemeContext";
@@ -17,6 +17,10 @@ export default function ThemeSwitcher() {
         }
         setTheme(theme == "dark" ? "light" : "dark");
     };
+
+    useEffect(() => {
+        localStorage.theme = theme;
+    });
 
     const getImageSwitcher = () => {
         return theme == "dark" ? moon : sun;
