@@ -1,10 +1,13 @@
-import React, { useRef, useState, useCallback, useEffect, useMemo } from "react"
-import { stopButton, playButton, volumeButton } from "../svg"
+import React, { useContext, useRef, useState, useEffect, useMemo } from "react"
+import { stopButton, playButton, volumeButton, muteButton } from "../svg"
 import { formatTime } from "../utils"
+import { useToggle } from "../hooks"
+import PlayerContext from "../PlayerContext";
 
-export default function Player({channel}) {
+export default function Player() {
     const audioElement = useRef(null)
-    const [play, setPlay] = useState(true)
+    const { isPlaying: play, togglePlay, onAirChannel: channel} = useContext(PlayerContext);
+    const [isMuted, toggleMuted] = useToggle(false)
     const [volume, setVolume] = useState(parseFloat(localStorage.getItem("radiopycolore__volume")) || 1)
     const currentBroadcast = channel.currentStep.broadcast
     const displayProgressBar = channel.currentStep.end !== 0
@@ -12,13 +15,13 @@ export default function Player({channel}) {
         () => play ? channel.audio_stream + `?t=${Date.now()}`: "",
         [play, channel.endpoint]
     )
+
     useEffect(() => {
         if (play) {
             audioElement.current.play()
             document.querySelector("#app").classList.add("app--player-visible")
         } else {
             audioElement.current.load()
-            document.querySelector("#app").classList.remove("app--player-visible")
         }
     }, [play])
 
@@ -28,10 +31,13 @@ export default function Player({channel}) {
     }, [volume])
 
     useEffect(() => {
+        audioElement.current.muted = isMuted
+    }, [isMuted])
+
+    useEffect(() => {
         if (play) audioElement.current.play()
     }, [channel.endpoint])
 
-    const togglePlay = useCallback(() => setPlay(p => !p), [])
 
     return <div className="player">
         <div className="player__controls">
@@ -39,7 +45,9 @@ export default function Player({channel}) {
                 { play ? stopButton : playButton}
             </button>
             <div className="volume-controls">
-                <button className="icon-volume">{volumeButton}</button>
+                <button onClick={toggleMuted} className={isMuted ? "icon-mute" : "icon-volume"}>
+                    { isMuted ? muteButton : volumeButton}
+                </button>
                 <input type="range" min="0" max="1" step="0.01" value={volume} onChange={(e) => setVolume(e.target.value)} className="volume-slider"/>
             </div>
         </div>
@@ -52,13 +60,12 @@ export default function Player({channel}) {
                 displayProgressBar ?
                 <div className="player-info__progress-bar">
                     <div className="start">{formatTime(channel.currentStep.start)}</div>
-                    <div className="progress"></div>
+                    <div className="progress" />
                     <div className="end">{formatTime(channel.currentStep.end)}</div>
                 </div> :
                 ""
-
             }
         </div>
-        <audio ref={audioElement} src={audioStreamUrl} preload="none"></audio>
+        <audio ref={audioElement} src={audioStreamUrl} preload="none" />
     </div>
 }

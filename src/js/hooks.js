@@ -1,6 +1,6 @@
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 
-export const useRipple = (element) => useCallback(event => {
+const useRipple = (element) => useCallback(event => {
     const domElement = element.current
     const x = event.pageX - event.currentTarget.offsetLeft
     const y = event.pageY - event.currentTarget.offsetTop
@@ -30,3 +30,20 @@ export const useRipple = (element) => useCallback(event => {
     }
     animationFrame = window.requestAnimationFrame(animationStep)
 }, [])
+
+const useToggle =  (initialValue) => {
+    const [value, setValue] = useState(initialValue)
+
+    const toggle = () => {
+        setValue(value => !value)
+    }
+
+    return [value, toggle]
+}
+
+
+
+export {
+    useRipple,
+    useToggle
+}
