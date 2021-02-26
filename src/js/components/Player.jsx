@@ -8,7 +8,7 @@ export default function Player() {
     const audioElement = useRef(null)
     const { isPlaying: play, togglePlay, onAirChannel: channel} = useContext(PlayerContext);
     const [isMuted, toggleMuted] = useToggle(false)
-    const [volume, setVolume] = useState(parseFloat(localStorage.getItem("radiopycolore__volume")) || 1)
+    const [volume, setVolume] = useState(parseFloat(localStorage.getItem("sunflowerradio__volume")) || 1)
     const currentBroadcast = channel.currentStep.broadcast
     const displayProgressBar = channel.currentStep.end !== 0
     const audioStreamUrl = useMemo(
@@ -26,7 +26,7 @@ export default function Player() {
     }, [play])
 
     useEffect(() => {
-        localStorage.setItem('radiopycolore__volume', volume)
+        localStorage.setItem('sunflowerradio__volume', volume)
         if (audioElement.current) audioElement.current.volume = volume
     }, [volume])
 

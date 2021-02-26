@@ -12,7 +12,7 @@ import API from "./api.js";
 import PlayerContext from "./PlayerContext.js";
 import { useToggle } from "./hooks";
 import ThemeContext from "./context/ThemeContext"
-import Theme from "./theme.js"
+import getLocalTheme from "./theme.js"
 
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
     const [channelEndpoints, setChannelEndpoints] = useState([])
     const [loading, setLoading] = useState(true)
     const [isPlaying, togglePlay] = useToggle(false)
-    const [theme, setTheme] = useState(Theme.getLocalTheme())
+    const [theme, setTheme] = useState(getLocalTheme())
 
     useEffect(() => {
         fetchChannelData()

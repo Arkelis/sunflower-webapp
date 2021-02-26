@@ -19,7 +19,7 @@ export default function ThemeSwitcher() {
     };
 
     useEffect(() => {
-        localStorage.theme = theme;
+        localStorage.sunflowerradio__theme = theme;
     });
 
     const getImageSwitcher = () => {

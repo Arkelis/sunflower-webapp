@@ -3,7 +3,7 @@
  * per default use built-in theme from user's system
  */
 export default function getLocalTheme() {
-    const userTheme = localStorage.theme;
+    const userTheme = localStorage.sunflowerradio__theme;
     if (userTheme) {
         return userTheme
     } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -11,8 +11,4 @@ export default function getLocalTheme() {
     }
 
     return 'light'
-}
-
-export default {
-    getLocalTheme,
 }
