@@ -7,6 +7,7 @@ import BreadCrumb from "../components/BreadCrumb";
 import Button from "../components/Button";
 import PlayerContext from "../PlayerContext";
 import { formatTime } from "../utils";
+import ThemeSwitcher from "../components/ThemeSwitcher";
 
 export default function OnAir({ channels }) {
     const { name } = useParams()
@@ -58,6 +59,7 @@ export default function OnAir({ channels }) {
             <li><Link className="link" to="/">Radio Pycolore</Link></li>
             <li>Chaîne {channel.name}</li>
         </BreadCrumb>
+        <ThemeSwitcher />
         <div className="channel-player-container">
             <h2>Chaîne {channel.name}</h2>
             <div className="current-broadcast-info-container">

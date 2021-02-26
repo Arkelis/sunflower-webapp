@@ -7,12 +7,6 @@
     --shadow-color: #222;
   }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        @include dark-theme
-    }
-}
-
 :root.dark {
     @include dark-theme
 }

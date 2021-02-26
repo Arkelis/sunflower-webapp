@@ -11,6 +11,8 @@ import Loader from "./components/Loader";
 import API from "./api.js";
 import PlayerContext from "./PlayerContext.js";
 import { useToggle } from "./hooks";
+import ThemeContext from "./context/ThemeContext"
+import getLocalTheme from "./theme.js"
 
 
 export default function App() {
@@ -19,9 +21,13 @@ export default function App() {
     const [channelEndpoints, setChannelEndpoints] = useState([])
     const [loading, setLoading] = useState(true)
     const [isPlaying, togglePlay] = useToggle(false)
+    const [theme, setTheme] = useState(getLocalTheme())
 
     useEffect(() => {
         fetchChannelData()
+
+        let root = document.getElementsByTagName("html")[0]
+        theme == "dark" ?  root.classList.add("dark") : root.classList.add("light")
     }, [])
 
     useEffect(() => {
@@ -65,39 +71,41 @@ export default function App() {
 
     if (loading) return <Loader/>
     return (
-        <PlayerContext.Provider value={{isPlaying, togglePlay, onAirChannel, setOnAirChannel}}>
-            <Switch>
-                <Route exact path="/">
-                    <ChannelsList channels={channelData}/>
-                </Route>
-                <Route
-                    exact path="/:name"
-                    render={({match}) => {
-                        if (channelEndpoints.includes(match.params.name)) {
-                            return <OnAir channels={channelData} playingChannelName={onAirChannel.endpoint}/>
-                        } else
-                            return <Redirect to="/"/>
-                    }}
-                />
-                <Route
-                    exact path="/:name/schedule"
-                    render={({match}) => {
-                        console.log(channelEndpoints)
-                        if (channelEndpoints.includes(match.params.name))
-                            return <Schedule/>
-                        else
-                            return <Redirect to="/"/>
-                    }}
-                />
-                <Route exact path="/pages/playlist-pycolore">
-                    <PycolorePlaylist/>
-                </Route>
-                <Route>
-                    <Redirect to="/"/>
-                </Route>
-            </Switch>
-            {/* render the player if radio is on */}
-            {onAirChannel === "" ? "" : <Player />}
-        </PlayerContext.Provider>
+        <ThemeContext.Provider value={{theme, setTheme}}>
+            <PlayerContext.Provider value={{isPlaying, togglePlay, onAirChannel, setOnAirChannel}}>
+                <Switch>
+                    <Route exact path="/">
+                        <ChannelsList channels={channelData}/>
+                    </Route>
+                    <Route
+                        exact path="/:name"
+                        render={({match}) => {
+                            if (channelEndpoints.includes(match.params.name)) {
+                                return <OnAir channels={channelData} playingChannelName={onAirChannel.endpoint}/>
+                            } else
+                                return <Redirect to="/"/>
+                        }}
+                    />
+                    <Route
+                        exact path="/:name/schedule"
+                        render={({match}) => {
+                            console.log(channelEndpoints)
+                            if (channelEndpoints.includes(match.params.name))
+                                return <Schedule/>
+                            else
+                                return <Redirect to="/"/>
+                        }}
+                    />
+                    <Route exact path="/pages/playlist-pycolore">
+                        <PycolorePlaylist/>
+                    </Route>
+                    <Route>
+                        <Redirect to="/"/>
+                    </Route>
+                </Switch>
+                {/* render the player if radio is on */}
+                {onAirChannel === "" ? "" : <Player />}
+            </PlayerContext.Provider>
+        </ThemeContext.Provider>
     )
 }
