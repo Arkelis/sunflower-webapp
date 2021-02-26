@@ -2,7 +2,7 @@
  * get the user color theme preference (dark or light)
  * per default use built-in theme from user's system
  */
-function getLocalTheme() {
+export default function getLocalTheme() {
     const userTheme = localStorage.theme;
     if (userTheme) {
         return userTheme
@@ -16,4 +16,3 @@ function getLocalTheme() {
 export default {
     getLocalTheme,
 }
-
