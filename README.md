@@ -12,5 +12,5 @@ yarn install
 
 To run or build the web application:
 
-* `yarn start` for starting Parcel development server.
+* `yarn start` for starting react-scripts development server
 * `yarn build` for building the application
