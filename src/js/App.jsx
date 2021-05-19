@@ -1,5 +1,6 @@
+import '../css/index.scss'
 import React, { useEffect, useState } from "react"
-import { Redirect, Route, Switch } from "react-router-dom"
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom"
 import 'regenerator-runtime/runtime'
 
 import ChannelsList from "./pages/ChannelsList";
@@ -27,11 +28,11 @@ export default function App() {
         fetchChannelData()
 
         let root = document.getElementsByTagName("html")[0]
-        theme == "dark" ?  root.classList.add("dark") : root.classList.add("light")
+        theme === "dark" ?  root.classList.add("dark") : root.classList.add("light")
     }, [])
 
     useEffect(() => {
-        if (channelEndpoints.length == 0) return
+        if (channelEndpoints.length === 0) return
         const es = new EventSource(process.env.REACT_APP_API_ENTRYPOINT + '/events')
         es.onmessage = async (message) => {
             const data = JSON.parse(message.data)
@@ -45,7 +46,7 @@ export default function App() {
             setChannelData(newChannelData)
         }
         es.onerror = (err) => console.log(err)
-    }, [channelEndpoints])
+    }, [channelEndpoints, channelData])
 
 
     const fetchChannelData = async () => {
@@ -73,6 +74,8 @@ export default function App() {
     return (
         <ThemeContext.Provider value={{theme, setTheme}}>
             <PlayerContext.Provider value={{isPlaying, togglePlay, onAirChannel, setOnAirChannel}}>
+                {/* <Router></Router> */}
+                <BrowserRouter>
                 <Switch>
                     <Route exact path="/">
                         <ChannelsList channels={channelData}/>
@@ -103,6 +106,7 @@ export default function App() {
                         <Redirect to="/"/>
                     </Route>
                 </Switch>
+                </BrowserRouter>
                 {/* render the player if radio is on */}
                 {onAirChannel === "" ? "" : <Player />}
             </PlayerContext.Provider>

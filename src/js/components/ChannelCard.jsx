@@ -3,19 +3,19 @@ import { useRipple } from "../hooks";
 import { Link } from "react-router-dom";
 
 export default function ChannelCard({channel}) {
-
-    if (!channel.currentStep) {
-        return "Impossible de retrouver les informations."
-    }
     const broadcast = channel.currentStep.broadcast
     const nextBroadcast = channel.nextStep.broadcast
 
     const element = useRef(null)
     const ripple = useRipple(element)
 
+    if (!channel.currentStep) {
+        return "Impossible de retrouver les informations."
+    }
+
     return <Link to={channel.endpoint}>
         <div ref={element} href="#" className="button card card--channel" onMouseDown={ripple}>
-            <div className="thumbnail"><img src={channel.currentStep.broadcast.thumbnail_src}/></div>
+            <div className="thumbnail"><img src={channel.currentStep.broadcast.thumbnail_src} alt={channel.endpoint + "_thumbnail"}/></div>
             <div className="info">
                 <div className="channel-name">{channel.name}</div>
                 <div className="show-title">

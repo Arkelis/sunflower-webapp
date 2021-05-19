@@ -1,5 +1,5 @@
 {
-  "name": "webapp",
+  "name": "sunflower-webapp",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -7,13 +7,34 @@
     "parcel-bundler": "^1.12.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3"
   },
   "devDependencies": {
     "sass": "^1.26.9"
   },
   "scripts": {
-    "start": "parcel --host 0.0.0.0 --port 8888 index.html",
-    "build": "rm -rf dist; parcel build --no-source-maps index.html"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
