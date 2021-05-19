@@ -14,8 +14,10 @@ const getChannelInfo = async (endpoint) => {
     return {endpoint: endpoint, name: json.name, schedule: json.schedule, audio_stream: json.audio_stream}
 }
 
-export default {
+const exportedObject = {
     getSchedule,
     getChannelStep,
     getChannelInfo
 };
+
+export default exportedObject;

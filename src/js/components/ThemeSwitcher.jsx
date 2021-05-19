@@ -8,14 +8,14 @@ export default function ThemeSwitcher() {
 
     const switchTheme = () => {
         let root = document.getElementsByTagName("html")[0];
-        if (theme== "dark") {
+        if (theme === "dark") {
             root.classList.remove("dark");
             root.classList.add("light");
         } else {
             root.classList.remove("light");
             root.classList.add("dark");
         }
-        setTheme(theme == "dark" ? "light" : "dark");
+        setTheme(theme === "dark" ? "light" : "dark");
     };
 
     useEffect(() => {
@@ -23,7 +23,7 @@ export default function ThemeSwitcher() {
     });
 
     const getImageSwitcher = () => {
-        return theme == "dark" ? moon : sun;
+        return theme === "dark" ? moon : sun;
     };
 
     return (

@@ -1,4 +1,7 @@
 .cache
 .vscode
 node_modules
-dist
+
+#  build files 
+/build
+/dist

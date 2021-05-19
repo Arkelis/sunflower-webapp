@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import cog from "../../css/svg/cog.svg"
 import { useToggle } from "../hooks"
 import { check } from "../svg"

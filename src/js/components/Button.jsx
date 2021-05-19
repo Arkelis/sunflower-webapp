@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { useRipple } from "../hooks";
-import { Link } from "react-router-dom";
 
 export default function Button({className, onClick, children}) {
     const element = useRef(null)

@@ -43,7 +43,7 @@ export default function PycolorePlaylist() {
         for (let artist in playlist) {
             const songs = playlist[artist]
             const size = songs.length
-            if (size == 0) continue;
+            if (size === 0) continue;
             const songsRows = []
             for (let i = 1; i < size; i++) {
                 songsRows.push(
