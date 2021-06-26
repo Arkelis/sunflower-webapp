@@ -3,15 +3,6 @@ import ChannelCard from "../components/ChannelCard"
 import Settings from "../components/Settings"
 
 export default function ChannelsList({ channels }) {
-    const cards = []
-    for (let channel in channels) {
-        cards.push(
-            <li key={channel}>
-                <ChannelCard channel={channels[channel]} />
-            </li>
-        )
-    }
-
     return (
         <>
             <Settings />
@@ -25,7 +16,14 @@ export default function ChannelsList({ channels }) {
                 </div>
                 <div className="channels-list-container">
                     <h2>En ce moment sur les chaînes</h2>
-                    <ul className="channel-cards">{cards}</ul>
+
+                    <ul className="channel-cards">
+                        {Object.entries(channels).map(([key, channel]) => (
+                            <li key={key}>
+                                <ChannelCard channel={channel} />
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </>

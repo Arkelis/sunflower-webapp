@@ -91,7 +91,6 @@ export default function App() {
                             exact
                             path="/:name/schedule"
                             render={({ match }) => {
-                                console.log(channelEndpoints)
                                 if (channelEndpoints.includes(match.params.name)) return <Schedule />
                                 else return <Redirect to="/" />
                             }}
