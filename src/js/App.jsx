@@ -1,20 +1,20 @@
-import '../css/index.scss'
+import "../css/index.scss"
 import React, { useEffect, useState } from "react"
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom"
-import 'regenerator-runtime/runtime'
+import "regenerator-runtime/runtime"
 
-import ChannelsList from "./pages/ChannelsList";
-import OnAir from "./pages/OnAir";
-import Schedule from "./pages/Schedule";
+import ChannelsList from "./pages/ChannelsList"
+import OnAir from "./pages/OnAir"
+import Schedule from "./pages/Schedule"
 import Player from "./components/Player"
-import PycolorePlaylist from "./pages/PycolorePlaylist";
-import Loader from "./components/Loader";
-import API from "./api.js";
-import PlayerContext from "./PlayerContext.js";
-import { useToggle } from "./hooks";
+import PycolorePlaylist from "./pages/PycolorePlaylist"
+import Loader from "./components/Loader"
+import API from "./api.js"
+import { useToggle } from "./hooks"
+import PlayerContext from "./context/PlayerContext"
 import ThemeContext from "./context/ThemeContext"
+import ThemeSwitcher from "./components/ThemeSwitcher";
 import getLocalTheme from "./theme.js"
-
 
 export default function App() {
     const [onAirChannel, setOnAirChannel] = useState("")
@@ -28,16 +28,16 @@ export default function App() {
         fetchChannelData()
 
         let root = document.getElementsByTagName("html")[0]
-        theme === "dark" ?  root.classList.add("dark") : root.classList.add("light")
+        theme === "dark" ? root.classList.add("dark") : root.classList.add("light")
     }, [])
 
     useEffect(() => {
         if (channelEndpoints.length === 0) return
-        const es = new EventSource(process.env.REACT_APP_API_ENTRYPOINT + '/events')
+        const es = new EventSource(process.env.REACT_APP_API_ENTRYPOINT + "/events")
         es.onmessage = async (message) => {
             const data = JSON.parse(message.data)
             const endpoint = data.channel
-            const newChannelData = {...channelData}
+            const newChannelData = { ...channelData }
             console.log(channelData)
             const currentStep = await API.getChannelStep(endpoint, "current")
             const nextStep = await API.getChannelStep(endpoint, "next")
@@ -47,7 +47,6 @@ export default function App() {
         }
         es.onerror = (err) => console.log(err)
     }, [channelEndpoints, channelData])
-
 
     const fetchChannelData = async () => {
         const resp = await fetch(`${process.env.REACT_APP_API_ENTRYPOINT}/channels/`)
@@ -70,45 +69,45 @@ export default function App() {
         setLoading(false)
     }
 
-    if (loading) return <Loader/>
+    if (loading) return <Loader />
     return (
-        <ThemeContext.Provider value={{theme, setTheme}}>
-            <PlayerContext.Provider value={{isPlaying, togglePlay, onAirChannel, setOnAirChannel}}>
-                {/* <Router></Router> */}
+        <ThemeContext.Provider value={{ theme, setTheme }}>
+            <PlayerContext.Provider value={{ isPlaying, togglePlay, onAirChannel, setOnAirChannel }}>
                 <BrowserRouter>
-                <Switch>
-                    <Route exact path="/">
-                        <ChannelsList channels={channelData}/>
-                    </Route>
-                    <Route
-                        exact path="/:name"
-                        render={({match}) => {
-                            if (channelEndpoints.includes(match.params.name)) {
-                                return <OnAir channels={channelData} playingChannelName={onAirChannel.endpoint}/>
-                            } else
-                                return <Redirect to="/"/>
-                        }}
-                    />
-                    <Route
-                        exact path="/:name/schedule"
-                        render={({match}) => {
-                            console.log(channelEndpoints)
-                            if (channelEndpoints.includes(match.params.name))
-                                return <Schedule/>
-                            else
-                                return <Redirect to="/"/>
-                        }}
-                    />
-                    <Route exact path="/pages/playlist-pycolore">
-                        <PycolorePlaylist/>
-                    </Route>
-                    <Route>
-                        <Redirect to="/"/>
-                    </Route>
-                </Switch>
+                    <Switch>
+                        <Route exact path="/">
+                            <ChannelsList channels={channelData} />
+                        </Route>
+                        <Route
+                            exact
+                            path="/:name"
+                            render={({ match }) => {
+                                if (channelEndpoints.includes(match.params.name)) {
+                                    return <OnAir channels={channelData} playingChannelName={onAirChannel.endpoint} />
+                                } else return <Redirect to="/" />
+                            }}
+                        />
+                        <Route
+                            exact
+                            path="/:name/schedule"
+                            render={({ match }) => {
+                                console.log(channelEndpoints)
+                                if (channelEndpoints.includes(match.params.name)) return <Schedule />
+                                else return <Redirect to="/" />
+                            }}
+                        />
+                        <Route exact path="/pages/playlist-pycolore">
+                            <PycolorePlaylist />
+                        </Route>
+                        <Route>
+                            <Redirect to="/" />
+                        </Route>
+                    </Switch>
                 </BrowserRouter>
+
+                <ThemeSwitcher />
                 {/* render the player if radio is on */}
-                {onAirChannel === "" ? "" : <Player />}
+                {onAirChannel !== "" && <Player />}
             </PlayerContext.Provider>
         </ThemeContext.Provider>
     )
