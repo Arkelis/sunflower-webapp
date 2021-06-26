@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState, useEffect, useMemo } from "react"
 import { stopButton, playButton, volumeButton, muteButton } from "../svg"
 import { formatTime } from "../utils"
 import { useToggle } from "../hooks"
-import PlayerContext from "../PlayerContext";
+import PlayerContext from "../context/PlayerContext";
 
 export default function Player() {
     const audioElement = useRef(null)
