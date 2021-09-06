@@ -7,7 +7,6 @@ export default function CSSDelayedTransition({timeout, transitionType, delay, co
     const [childrenToRender, setChildrenToRender] = useState(<Fragment/>)
 
     useEffect(() => {
-        console.log(component)
         if (component == childrenToRender) return
         const ti = setTimeout(() => {
             setShow(false)

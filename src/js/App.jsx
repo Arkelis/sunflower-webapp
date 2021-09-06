@@ -38,11 +38,9 @@ export default function App() {
             const data = JSON.parse(message.data)
             const endpoint = data.channel
             const newChannelData = { ...channelData }
-            console.log(channelData)
-            const currentStep = await API.getChannelStep(endpoint, "current")
-            const nextStep = await API.getChannelStep(endpoint, "next")
-            newChannelData[endpoint].currentStep = currentStep
-            newChannelData[endpoint].nextStep = nextStep
+            const channelSteps = await API.getChannelSteps(endpoint)
+            newChannelData[endpoint].currentStep = channelSteps.current_step
+            newChannelData[endpoint].nextStep = channelSteps.next_step
             setChannelData(newChannelData)
         }
         es.onerror = (err) => console.log(err)
@@ -50,18 +48,18 @@ export default function App() {
 
     const fetchChannelData = async () => {
         const resp = await fetch(`${process.env.REACT_APP_API_ENTRYPOINT}/channels/`)
-        const json = await resp.json()
+        const channelsData = await resp.json()
         const endpoints = []
-        for (let endpoint in json) endpoints.push(endpoint)
         let newChannelData = {}
-        for (let endpoint of endpoints) {
-            const channelInfo = await API.getChannelInfo(endpoint)
-            const currentStep = await API.getChannelStep(endpoint, "current")
-            const nextStep = await API.getChannelStep(endpoint, "next")
-            newChannelData[endpoint] = {
-                ...channelInfo,
-                currentStep: currentStep,
-                nextStep: nextStep
+        for (let channel of channelsData) {
+            endpoints.push(channel.id)
+            newChannelData[channel.id] = {
+                endpoint: channel.id,
+                currentStep: channel.current_step,
+                nextStep: channel.next_step,
+                name: channel.name,
+                schedule: channel.schedule,
+                audio_stream: channel.audio_stream
             }
         }
         setChannelData(newChannelData)

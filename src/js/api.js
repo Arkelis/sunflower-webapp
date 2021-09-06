@@ -3,8 +3,8 @@ async function getSchedule(name) {
     return  resp.json()
 }
 
-const getChannelStep = async (endpoint, stepType) => {
-    const resp = await fetch(process.env.REACT_APP_API_ENTRYPOINT + `/channels/${endpoint}/${stepType}/`)
+const getChannelSteps = async (endpoint) => {
+    const resp = await fetch(process.env.REACT_APP_API_ENTRYPOINT + `/channels/${endpoint}`)
     return  resp.json()
 }
 
@@ -16,7 +16,7 @@ const getChannelInfo = async (endpoint) => {
 
 const exportedObject = {
     getSchedule,
-    getChannelStep,
+    getChannelSteps,
     getChannelInfo
 };
 
