@@ -1,7 +1,7 @@
 .cache
 .vscode
 node_modules
-
+.shadow-cljs
 #  build files 
 /build
 /dist
